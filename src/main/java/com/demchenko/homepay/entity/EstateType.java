@@ -6,16 +6,14 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "roles")
-public class Role extends NamedEntity {
+public class EstateType extends NamedEntity {
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> userSet;
+    @OneToMany(mappedBy = "estateType")
+    private Set<Estate> estateSet;
 
 }
