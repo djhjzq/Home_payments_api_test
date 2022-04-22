@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "roles")
-public class Role extends NamedEntity {
+public class Role extends NamedEntity  {
 
     @OneToMany(mappedBy = "role")
     private Set<User> userSet;
