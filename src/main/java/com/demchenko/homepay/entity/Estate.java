@@ -31,7 +31,6 @@ public class Estate extends BaseEntity {
     @ManyToOne
     private Street street;
 
-    @ManyToOne
     private EstateType estateType;
 
 }

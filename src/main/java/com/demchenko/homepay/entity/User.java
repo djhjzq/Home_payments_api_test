@@ -23,7 +23,6 @@ public class  User extends Person {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    @ManyToOne
     private Role role;
 
     @OneToMany(mappedBy = "user")

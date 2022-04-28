@@ -13,7 +13,6 @@ import java.util.Set;
 @Table(name = "invoices")
 public class Invoice extends NamedEntity {
 
-    @ManyToOne
     private InvoiceType invoiceType;
 
     @ManyToOne(fetch = FetchType.EAGER)
