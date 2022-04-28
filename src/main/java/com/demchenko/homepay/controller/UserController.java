@@ -18,25 +18,4 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/new")
-    public void createNewUser(@RequestParam String firstName,
-                              @RequestParam String lastName,
-                              @RequestParam String email,
-                              @RequestParam String password) {
-
-        userService.createUser(firstName, lastName,
-                email, password);
-    }
-
-    @GetMapping("/all")
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
-    }
-
-    @PostMapping
-    public User findUserByEmail(@RequestParam String email) {
-        return userService.findUserByEmail(email);
-    }
-
-
 }
