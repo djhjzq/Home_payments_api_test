@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.UserRepository;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
-
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User with this email does not found"));
+    }
 }
