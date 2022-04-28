@@ -5,8 +5,10 @@ import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/cabinet")
+@RequestMapping
 public class UserController {
 
     private final UserService userService;
@@ -16,9 +18,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public User findUserById(@PathVariable Long id) {
-       return userService.findUserById(id);
+    @PostMapping("/new")
+    public void createNewUser(@RequestParam String firstName,
+                              @RequestParam String lastName,
+                              @RequestParam String email,
+                              @RequestParam String password) {
+
+        userService.createUser(firstName, lastName,
+                email, password);
+    }
+
+    @GetMapping("/all")
+    public List<User> findAllUsers() {
+        return userService.findAllUsers();
+    }
+
+    @PostMapping
+    public User findUserByEmail(@RequestParam String email) {
+        return userService.findUserByEmail(email);
     }
 
 
