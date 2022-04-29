@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -56,4 +57,5 @@ public class UserServiceImpl implements UserService {
     public Set<Invoice> findAllInvoices(Long userId) {
         return findUserById(userId).getInvoiceSet();
     }
+
 }

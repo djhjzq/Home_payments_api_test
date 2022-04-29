@@ -17,14 +17,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final UserService userService;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, UserServiceImpl userService) {
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, UserService userService) {
         this.invoiceRepository = invoiceRepository;
         this.userService = userService;
     }
 
     @Override
-    public void createInvoice(String name, String invoiceType,
-                              Long userId) {
+    public void createInvoice(String name, String invoiceType, Long userId) {
         Invoice invoice = new Invoice();
         invoice.setName(name);
         invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
