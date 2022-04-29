@@ -25,7 +25,7 @@ public class  User extends Person {
 
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Invoice> invoiceSet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,

@@ -1,6 +1,8 @@
 package com.demchenko.homepay.controller;
 
+import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.User;
+import com.demchenko.homepay.service.InvoiceService;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final InvoiceService invoiceService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, InvoiceService invoiceService) {
         this.userService = userService;
+        this.invoiceService = invoiceService;
     }
 
     @PostMapping("/new")
@@ -38,5 +43,16 @@ public class UserController {
         return userService.findUserByEmailAndPassword(email, password);
     }
 
+    @PostMapping("/invoice/new")
+    public void addInvoice(@RequestParam String name,
+                           @RequestParam String invoiceType,
+                           @RequestParam Long userId) {
+        invoiceService.createInvoice(name, invoiceType, userId);
+    }
+
+    @PostMapping("/invoice/all")
+    public List<Invoice> findAllUserInvoices(@RequestParam Long userId) {
+        return invoiceService.findAllUserInvoices(userId);
+    }
 
 }

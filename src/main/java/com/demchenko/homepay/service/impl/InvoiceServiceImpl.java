@@ -1,0 +1,39 @@
+package com.demchenko.homepay.service.impl;
+
+import com.demchenko.homepay.entity.Invoice;
+import com.demchenko.homepay.entity.InvoiceType;
+import com.demchenko.homepay.repository.InvoiceRepository;
+import com.demchenko.homepay.service.InvoiceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class InvoiceServiceImpl implements InvoiceService {
+
+    private final InvoiceRepository invoiceRepository;
+
+    private final UserServiceImpl userService;
+
+    @Autowired
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, UserServiceImpl userService) {
+        this.invoiceRepository = invoiceRepository;
+        this.userService = userService;
+    }
+
+    @Override
+    public void createInvoice(String name, String invoiceType,
+                              Long userId) {
+        Invoice invoice = new Invoice();
+        invoice.setName(name);
+        invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
+        invoice.setUser(userService.findUserById(userId));
+        invoiceRepository.save(invoice);
+    }
+
+    @Override
+    public List<Invoice> findAllUserInvoices(Long userId) {
+        return invoiceRepository.findAllByUser(userService.findUserById(userId));
+    }
+}
