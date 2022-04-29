@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -24,6 +25,12 @@ public class UserController {
         this.invoiceService = invoiceService;
     }
 
+    @PostMapping
+    public User findUserByEmailAndPassword(@RequestParam String email,
+                                           @RequestParam String password) {
+        return userService.findUserByEmailAndPassword(email, password);
+    }
+
     @PostMapping("/new")
     public void createUser(@RequestParam String firstName,
                            @RequestParam String lastName,
@@ -37,11 +44,6 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-    @PostMapping
-    public User findUserByEmailAndPassword(@RequestParam String email,
-                                           @RequestParam String password) {
-        return userService.findUserByEmailAndPassword(email, password);
-    }
 
     @PostMapping("/invoice/new")
     public void addInvoice(@RequestParam String name,
@@ -51,8 +53,13 @@ public class UserController {
     }
 
     @PostMapping("/invoice/all")
-    public List<Invoice> findAllUserInvoices(@RequestParam Long userId) {
-        return invoiceService.findAllUserInvoices(userId);
+    public Set<Invoice> findAllInvoices(Long userId) {
+        return userService.findAllInvoices(userId);
+    }
+
+    @PostMapping("/invoice")
+    public Invoice findInvoiceByName(@RequestParam String invoiceName) {
+        return invoiceService.findInvoiceByName(invoiceName);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.demchenko.homepay.service;
 
 
+import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.User;
 
 import java.util.List;
+import java.util.Set;
 
 
 public interface UserService {
@@ -16,4 +18,6 @@ public interface UserService {
                     String email, String password);
     
     List<User> findAllUsers();
+
+    Set<Invoice> findAllInvoices(Long userId);
 }

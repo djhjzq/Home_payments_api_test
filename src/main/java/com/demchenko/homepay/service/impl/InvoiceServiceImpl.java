@@ -4,17 +4,17 @@ import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.InvoiceType;
 import com.demchenko.homepay.repository.InvoiceRepository;
 import com.demchenko.homepay.service.InvoiceService;
+import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
     public InvoiceServiceImpl(InvoiceRepository invoiceRepository, UserServiceImpl userService) {
@@ -33,7 +33,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> findAllUserInvoices(Long userId) {
-        return invoiceRepository.findAllByUser(userService.findUserById(userId));
+    public Invoice findInvoiceByName(String name) {
+        return invoiceRepository.findInvoiceByName(name);
     }
 }
