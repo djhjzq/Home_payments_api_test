@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -36,6 +37,6 @@ public class  User extends Person {
     @JoinTable(name = "user_estate",
     joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "estate_id"))
-    private Set<Estate> estateSet;
+    private Set<Estate> estateSet = new HashSet<>();
 
 }

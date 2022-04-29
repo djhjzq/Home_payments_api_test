@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
@@ -58,4 +59,8 @@ public class UserServiceImpl implements UserService {
         return findUserById(userId).getInvoiceSet();
     }
 
+    @Override
+    public Set<Estate> findAllEstates(Long userId) {
+        return findUserById(userId).getEstateSet();
+    }
 }

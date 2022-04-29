@@ -1,6 +1,7 @@
 package com.demchenko.homepay.service;
 
 
+import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.User;
 
@@ -20,4 +21,6 @@ public interface UserService {
     List<User> findAllUsers();
 
     Set<Invoice> findAllInvoices(Long userId);
+
+    Set<Estate> findAllEstates(Long userId);
 }
