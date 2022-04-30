@@ -1,6 +1,7 @@
 package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
+import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.Role;
@@ -33,9 +34,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmailAndPassword(String email, String password) {
-        return userRepository.findUserByEmailAndPassword(email, password)
+    public UserResponse findUserByEmailAndPassword(String email, String password) {
+        UserResponse userResponse = new UserResponse();
+        User user = userRepository.findUserByEmailAndPassword(email, password)
                 .orElseThrow(() -> new RuntimeException("Incorrect email or password"));
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setLastName(user.getLastName());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setId(user.getId());
+        return userResponse;
     }
 
     @Override

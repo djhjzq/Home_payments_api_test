@@ -1,12 +1,11 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
-import com.demchenko.homepay.entity.User;
+import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @RestController
@@ -21,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping
-    public User findUserByEmailAndPassword(@RequestParam String email,
-                                           @RequestParam String password) {
+    public UserResponse findUserByEmailAndPassword(@RequestParam String email,
+                                                   @RequestParam String password) {
         return userService.findUserByEmailAndPassword(email, password);
     }
 
@@ -30,10 +29,5 @@ public class UserController {
     public void registry(UserRegistryForm userRegistryForm) {
          userService.registryUser(userRegistryForm);
     }
-
-    @GetMapping("/all")
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
-    }
-
+    
 }
