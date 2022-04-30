@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.InvoiceType;
 import com.demchenko.homepay.repository.InvoiceRepository;
@@ -29,6 +30,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
         invoice.setUser(userService.findUserById(userId));
         invoiceRepository.save(invoice);
+    }
+
+    @Override
+    public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
+        createInvoice(invoiceRegistryForm.getName(),
+                invoiceRegistryForm.getInvoiceType(),
+                invoiceRegistryForm.getUserId());
     }
 
     @Override

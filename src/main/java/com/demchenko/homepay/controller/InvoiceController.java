@@ -1,5 +1,6 @@
 package com.demchenko.homepay.controller;
 
+import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.service.InvoiceService;
 import com.demchenko.homepay.service.UserService;
@@ -29,10 +30,8 @@ public class InvoiceController {
     }
 
     @PostMapping("/new")
-    public void addInvoice(@RequestParam String name,
-                           @RequestParam String invoiceType,
-                           @RequestParam Long userId) {
-        invoiceService.createInvoice(name, invoiceType, userId);
+    public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
+        invoiceService.addInvoice(invoiceRegistryForm);
     }
 
     @PostMapping("/all")
