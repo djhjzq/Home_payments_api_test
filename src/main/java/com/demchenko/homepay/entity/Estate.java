@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -21,7 +20,7 @@ public class Estate extends BaseEntity {
     private Integer flatNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "estateSet")
-    private Set<User> userSet = new HashSet<>();
+    private Set<User> userSet;
 
     @OneToMany(mappedBy = "estate")
     private Set<Payment> paymentSet;

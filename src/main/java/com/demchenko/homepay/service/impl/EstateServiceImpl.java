@@ -33,15 +33,18 @@ public class EstateServiceImpl implements EstateService {
     public void createEstate(Long userId, Long cityId,
                              Long streetId, Integer houseNumber,
                              Integer flatNumber) {
+
         Estate estate = new Estate();
         estate.setCity(cityService.findCityById(cityId));
         estate.setStreet(streetService.findStreetById(streetId));
-        estate.getUserSet().add(userService.findUserById(userId));
         estate.setHouseNumber(houseNumber);
         estate.setFlatNumber(flatNumber);
+
         if(flatNumber != 0) {
             estate.setEstateType(EstateType.FLAT);
         } else estate.setEstateType(EstateType.HOUSE);
+
+        userService.findUserById(userId).getEstateSet().add(estate);
 
         estateRepository.save(estate);
     }
