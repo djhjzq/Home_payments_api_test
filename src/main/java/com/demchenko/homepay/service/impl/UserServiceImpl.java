@@ -2,7 +2,6 @@ package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.response.UserResponse;
-import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.UserRepository;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -60,15 +57,5 @@ public class UserServiceImpl implements UserService {
     public void registryUser(UserRegistryForm userRegistryForm) {
         createUser(userRegistryForm.getFirstName(), userRegistryForm.getLastName(),
                 userRegistryForm.getEmail(), userRegistryForm.getPassword());
-    }
-
-    @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Set<Estate> findAllEstates(Long userId) {
-        return findUserById(userId).getEstateSet();
     }
 }

@@ -38,9 +38,4 @@ public class InvoiceServiceImpl implements InvoiceService {
                 invoiceRegistryForm.getInvoiceType(),
                 invoiceRegistryForm.getEstateId());
     }
-
-    @Override
-    public Invoice findInvoiceByName(String name) {
-        return invoiceRepository.findInvoiceByName(name);
-    }
 }

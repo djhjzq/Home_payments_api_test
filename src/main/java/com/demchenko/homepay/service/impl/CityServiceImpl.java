@@ -28,10 +28,4 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findById(cityId)
                 .orElseThrow(() -> new RuntimeException("City with this id does not found"));
     }
-
-    @Override
-    public City findCityByName(String cityName) {
-        return cityRepository.findCityByName(cityName)
-                .orElseThrow(() -> new RuntimeException("City does not found"));
-    }
 }

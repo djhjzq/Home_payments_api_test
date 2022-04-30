@@ -1,7 +1,6 @@
 package com.demchenko.homepay.service;
 
 import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
-import com.demchenko.homepay.entity.Invoice;
 
 
 public interface InvoiceService {
@@ -10,5 +9,4 @@ public interface InvoiceService {
 
     void addInvoice(InvoiceRegistryForm invoiceRegistryForm);
 
-    Invoice findInvoiceByName(String name);
 }

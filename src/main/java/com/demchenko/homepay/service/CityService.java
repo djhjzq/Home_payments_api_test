@@ -8,6 +8,4 @@ public interface CityService {
 
     City findCityById(Long cityId);
 
-    City findCityByName(String cityName);
-
 }
