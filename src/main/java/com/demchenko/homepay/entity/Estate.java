@@ -23,6 +23,9 @@ public class Estate extends BaseEntity {
     private Set<User> userSet;
 
     @ManyToOne
+    private City city;
+
+    @ManyToOne
     private Street street;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "estate")

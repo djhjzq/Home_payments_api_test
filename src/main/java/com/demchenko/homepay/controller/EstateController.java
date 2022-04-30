@@ -26,10 +26,11 @@ public class EstateController {
 
     @PostMapping("/new")
     public void addEstate(@RequestParam Long userId,
+                          @RequestParam Long cityId,
                           @RequestParam Long streetId,
                           @RequestParam Integer houseNumber,
                           @RequestParam Integer flatNumber) {
-        estateService.createEstate(userId, streetId, houseNumber, flatNumber);
+        estateService.createEstate(userId, cityId, streetId, houseNumber, flatNumber);
     }
 
     @PostMapping("/new/city")

@@ -20,4 +20,8 @@ public class City extends NamedEntity {
             orphanRemoval = true)
     private Set<Street> streetSet;
 
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Estate> estateSet;
+
 }

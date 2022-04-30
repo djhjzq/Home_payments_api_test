@@ -3,6 +3,7 @@ package com.demchenko.homepay.service.impl;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.EstateType;
 import com.demchenko.homepay.repository.EstateRepository;
+import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import com.demchenko.homepay.service.UserService;
@@ -18,20 +19,25 @@ public class EstateServiceImpl implements EstateService {
 
     private final StreetService streetService;
 
+    private final CityService cityService;
+
     @Autowired
-    public EstateServiceImpl(UserService userService, EstateRepository estateRepository, StreetService streetService) {
+    public EstateServiceImpl(UserService userService, EstateRepository estateRepository, StreetService streetService, CityService cityService) {
         this.userService = userService;
         this.estateRepository = estateRepository;
         this.streetService = streetService;
+        this.cityService = cityService;
     }
 
     @Override
     public void createEstate(Long userId,
+                             Long cityId,
                              Long streetId, Integer houseNumber,
                              Integer flatNumber) {
 
         Estate estate = new Estate();
         estate.setStreet(streetService.findStreetById(streetId));
+        estate.setCity(cityService.findCityById(cityId));
         estate.setHouseNumber(houseNumber);
         estate.setFlatNumber(flatNumber);
 
