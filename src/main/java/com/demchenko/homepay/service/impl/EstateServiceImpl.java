@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.dto.request.EstateRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.EstateType;
 import com.demchenko.homepay.repository.EstateRepository;
@@ -48,6 +49,13 @@ public class EstateServiceImpl implements EstateService {
         userService.findUserById(userId).getEstateSet().add(estate);
 
         estateRepository.save(estate);
+    }
+
+    @Override
+    public void registryEstate(EstateRegistryForm estateRegistryForm) {
+        createEstate(estateRegistryForm.getUserId(), estateRegistryForm.getCityId(),
+                estateRegistryForm.getStreetId(), estateRegistryForm.getHouseNumber(),
+                estateRegistryForm.getFlatNumber());
     }
 
     @Override

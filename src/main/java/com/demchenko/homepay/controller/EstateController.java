@@ -1,5 +1,6 @@
 package com.demchenko.homepay.controller;
 
+import com.demchenko.homepay.dto.request.EstateRegistryForm;
 import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
@@ -25,12 +26,8 @@ public class EstateController {
     }
 
     @PostMapping("/new")
-    public void addEstate(@RequestParam Long userId,
-                          @RequestParam Long cityId,
-                          @RequestParam Long streetId,
-                          @RequestParam Integer houseNumber,
-                          @RequestParam Integer flatNumber) {
-        estateService.createEstate(userId, cityId, streetId, houseNumber, flatNumber);
+    public void registryEstate(EstateRegistryForm estateRegistryForm) {
+        estateService.registryEstate(estateRegistryForm);
     }
 
     @PostMapping("/new/city")

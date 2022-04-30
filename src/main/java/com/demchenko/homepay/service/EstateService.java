@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service;
 
+import com.demchenko.homepay.dto.request.EstateRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 
 public interface EstateService {
@@ -8,6 +9,8 @@ public interface EstateService {
                       Long cityId,
                       Long streetId, Integer houseNumber,
                       Integer flatNumber);
+
+    void registryEstate(EstateRegistryForm estateRegistryForm);
 
     Estate findEstateById(Long id);
 }
