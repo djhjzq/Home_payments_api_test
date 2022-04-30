@@ -3,7 +3,6 @@ package com.demchenko.homepay.service.impl;
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.Estate;
-import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.UserRepository;
@@ -66,11 +65,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
-    }
-
-    @Override
-    public Set<Invoice> findAllInvoices(Long userId) {
-        return findUserById(userId).getInvoiceSet();
     }
 
     @Override

@@ -24,10 +24,8 @@ public class  User extends Person {
     @Column(name = "balance")
     private BigDecimal balance;
 
+    @Column(name = "role")
     private Role role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Invoice> invoiceSet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,
             orphanRemoval = true)

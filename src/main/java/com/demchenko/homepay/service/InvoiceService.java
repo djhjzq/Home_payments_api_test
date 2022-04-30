@@ -6,7 +6,7 @@ import com.demchenko.homepay.entity.Invoice;
 
 public interface InvoiceService {
 
-    void createInvoice(String name, String invoiceType, Long userId);
+    void createInvoice(String name, String invoiceType, Long estateId);
 
     void addInvoice(InvoiceRegistryForm invoiceRegistryForm);
 

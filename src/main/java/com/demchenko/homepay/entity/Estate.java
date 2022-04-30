@@ -22,14 +22,11 @@ public class Estate extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "estateSet")
     private Set<User> userSet;
 
-    @OneToMany(mappedBy = "estate")
-    private Set<Payment> paymentSet;
-
-    @ManyToOne
-    private City city;
-
     @ManyToOne
     private Street street;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estate")
+    private Set<Invoice> invoiceSet;
 
     private EstateType estateType;
 

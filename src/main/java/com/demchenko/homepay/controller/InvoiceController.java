@@ -3,11 +3,9 @@ package com.demchenko.homepay.controller;
 import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.service.InvoiceService;
-import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
 
 
 @RestController
@@ -16,12 +14,10 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    private final UserService userService;
 
     @Autowired
-    public InvoiceController(InvoiceService invoiceService, UserService userService) {
+    public InvoiceController(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
-        this.userService = userService;
     }
 
     @PostMapping
@@ -32,11 +28,6 @@ public class InvoiceController {
     @PostMapping("/new")
     public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
         invoiceService.addInvoice(invoiceRegistryForm);
-    }
-
-    @PostMapping("/all")
-    public Set<Invoice> findAllUserInvoices(@RequestParam Long userId) {
-        return userService.findAllInvoices(userId);
     }
 
 }

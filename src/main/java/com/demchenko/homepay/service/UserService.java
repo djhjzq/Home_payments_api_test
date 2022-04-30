@@ -4,7 +4,6 @@ package com.demchenko.homepay.service;
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.Estate;
-import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.User;
 
 import java.util.List;
@@ -23,8 +22,6 @@ public interface UserService {
     void registryUser(UserRegistryForm userRegistryForm);
     
     List<User> findAllUsers();
-
-    Set<Invoice> findAllInvoices(Long userId);
 
     Set<Estate> findAllEstates(Long userId);
 }

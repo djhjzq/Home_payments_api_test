@@ -1,7 +1,6 @@
 package com.demchenko.homepay.entity;
 
 import com.demchenko.homepay.entity.basic.NamedEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +16,7 @@ public class Invoice extends NamedEntity {
     private InvoiceType invoiceType;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    private User user;
+    private Estate estate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice")
     private Set<Payment> paymentSet;

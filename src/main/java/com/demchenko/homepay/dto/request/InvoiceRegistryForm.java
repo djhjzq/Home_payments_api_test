@@ -11,5 +11,5 @@ public class InvoiceRegistryForm {
 
     private String invoiceType;
 
-    private Long userId;
+    private Long estateId;
 }
