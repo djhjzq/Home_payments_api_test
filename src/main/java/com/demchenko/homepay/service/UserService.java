@@ -1,6 +1,7 @@
 package com.demchenko.homepay.service;
 
 
+import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.User;
@@ -17,6 +18,8 @@ public interface UserService {
 
     void createUser(String firstName, String lastName,
                     String email, String password);
+
+    void registryUser(UserRegistryForm userRegistryForm);
     
     List<User> findAllUsers();
 

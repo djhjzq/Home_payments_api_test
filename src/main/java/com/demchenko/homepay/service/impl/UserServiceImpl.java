@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.Role;
@@ -47,6 +48,12 @@ public class UserServiceImpl implements UserService {
         user.setBalance(BigDecimal.valueOf(0));
         user.setRole(Role.USER);
         userRepository.save(user);
+    }
+
+    @Override
+    public void registryUser(UserRegistryForm userRegistryForm) {
+        createUser(userRegistryForm.getFirstName(), userRegistryForm.getLastName(),
+                userRegistryForm.getEmail(), userRegistryForm.getPassword());
     }
 
     @Override

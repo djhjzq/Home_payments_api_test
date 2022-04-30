@@ -1,5 +1,6 @@
 package com.demchenko.homepay.controller;
 
+import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public void createUser(@RequestParam String firstName,
-                           @RequestParam String lastName,
-                           @RequestParam String email,
-                           @RequestParam String password) {
-        userService.createUser(firstName, lastName, email, password);
+    public void registry(UserRegistryForm userRegistryForm) {
+         userService.registryUser(userRegistryForm);
     }
 
     @GetMapping("/all")
