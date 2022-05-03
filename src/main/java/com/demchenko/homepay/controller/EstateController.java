@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/user/objects")
+@RequestMapping("/objects")
 public class EstateController {
 
     private final EstateService estateService;

@@ -1,20 +1,9 @@
 package com.demchenko.homepay.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class EstateRegistryForm {
+import java.io.Serializable;
 
-    private Long userId;
-
-    private Long cityId;
-
-    private Long streetId;
-
-    private Integer houseNumber;
-
-    private Integer flatNumber;
+public record EstateRegistryForm(Long userId, Long cityId, Long streetId,
+                                 Integer houseNumber, Integer flatNumber) implements Serializable {
 
 }

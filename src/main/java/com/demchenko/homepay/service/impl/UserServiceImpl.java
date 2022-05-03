@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registryUser(UserRegistryForm userRegistryForm) {
-        createUser(userRegistryForm.getFirstName(), userRegistryForm.getLastName(),
-                userRegistryForm.getEmail(), userRegistryForm.getPassword());
+        createUser(userRegistryForm.firstName(), userRegistryForm.lastName(),
+                userRegistryForm.email(), userRegistryForm.password());
     }
 }

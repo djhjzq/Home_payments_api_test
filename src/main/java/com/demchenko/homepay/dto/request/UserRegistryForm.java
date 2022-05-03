@@ -1,18 +1,8 @@
 package com.demchenko.homepay.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
-@Getter
-@Setter
-public class UserRegistryForm {
-
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    private String password;
+public record UserRegistryForm(String firstName, String lastName, String email,
+                               String password) implements Serializable {
 
 }

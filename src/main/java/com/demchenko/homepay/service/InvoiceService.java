@@ -12,7 +12,7 @@ public interface InvoiceService {
 
     void addInvoice(InvoiceRegistryForm invoiceRegistryForm);
 
-    Invoice findInvoiceByEstateId(Long estateId);
+    Invoice findInvoiceById(Long invoiceId);
 
     Set<Invoice> findAllEstateInvoices(Long estateId);
 

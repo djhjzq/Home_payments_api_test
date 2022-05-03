@@ -1,15 +1,8 @@
 package com.demchenko.homepay.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class InvoiceRegistryForm {
+import java.io.Serializable;
 
-    private String name;
+public record InvoiceRegistryForm(String name, String invoiceType, Long estateId) implements Serializable {
 
-    private String invoiceType;
-
-    private Long estateId;
 }

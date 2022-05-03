@@ -19,7 +19,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private final EstateService estateService;
 
-
     @Autowired
     public InvoiceServiceImpl(InvoiceRepository invoiceRepository, EstateService estateService) {
         this.invoiceRepository = invoiceRepository;
@@ -37,14 +36,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
-        createInvoice(invoiceRegistryForm.getName(),
-                invoiceRegistryForm.getInvoiceType(),
-                invoiceRegistryForm.getEstateId());
+        createInvoice(invoiceRegistryForm.name(),
+                invoiceRegistryForm.invoiceType(),
+                invoiceRegistryForm.estateId());
     }
 
     @Override
-    public Invoice findInvoiceByEstateId(Long estateId) {
-        return invoiceRepository.findInvoiceByEstate(estateService.findEstateById(estateId));
+    public Invoice findInvoiceById(Long invoiceId) {
+        return invoiceRepository.findById(invoiceId)
+                .orElseThrow(()-> new RuntimeException("INVOICE NOT FOUND"));
     }
 
     @Override

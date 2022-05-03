@@ -37,7 +37,6 @@ public class EstateServiceImpl implements EstateService {
                              Long cityId,
                              Long streetId, Integer houseNumber,
                              Integer flatNumber) {
-
         Estate estate = new Estate();
         estate.setStreet(streetService.findStreetById(streetId));
         estate.setCity(cityService.findCityById(cityId));
@@ -55,9 +54,9 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public void registryEstate(EstateRegistryForm estateRegistryForm) {
-        createEstate(estateRegistryForm.getUserId(), estateRegistryForm.getCityId(),
-                estateRegistryForm.getStreetId(), estateRegistryForm.getHouseNumber(),
-                estateRegistryForm.getFlatNumber());
+        createEstate(estateRegistryForm.userId(), estateRegistryForm.cityId(),
+                estateRegistryForm.streetId(), estateRegistryForm.houseNumber(),
+                estateRegistryForm.flatNumber());
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("user/invoices")
+@RequestMapping("/invoices")
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
