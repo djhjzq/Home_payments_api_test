@@ -2,6 +2,7 @@ package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.response.UserDto;
+import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

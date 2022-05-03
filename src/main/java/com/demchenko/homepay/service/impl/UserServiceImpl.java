@@ -18,10 +18,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final UserMapper userMapper;
+
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserByEmailAndPassword(String email, String password) {
-        return UserMapper.INSTANCE.userToUserDto(userRepository.findUserByEmailAndPassword(email, password).
+        return userMapper.userToUserDto(userRepository.findUserByEmailAndPassword(email, password).
                 orElseThrow(()-> new RuntimeException("USER NOT FOUND")));
     }
 
