@@ -33,7 +33,7 @@ public class EstateController {
         this.estateMapper = estateMapper;
     }
 
-    @PostMapping
+    @PostMapping("/all")
     public Set<EstateDto> showObjects(Long userId) {
         return estateService.findAllEstatesByUserId(userId).stream()
                 .map(estateMapper:: estateToEstateDto).collect(Collectors.toSet());

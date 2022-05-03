@@ -2,6 +2,7 @@ package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.PaymentRequest;
 import com.demchenko.homepay.entity.Payment;
+import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.PaymentRepository;
 import com.demchenko.homepay.service.InvoiceService;
 import com.demchenko.homepay.service.PaymentService;
@@ -33,9 +34,11 @@ public class PaymentServiceImpl implements PaymentService {
     public void createPayment(Long invoiceId, Long userId, BigDecimal amount) {
         Date date = new Date();
         Payment payment = new Payment();
+        User user = userService.findUserById(userId);
+        user.setBalance(user.getBalance().add(amount));
         payment.setCreatedOn(date);
         payment.setInvoice(invoiceService.findInvoiceById(invoiceId));
-        payment.setUser(userService.findUserById(userId));
+        payment.setUser(user);
         payment.setAmount(amount);
         paymentRepository.save(payment);
     }

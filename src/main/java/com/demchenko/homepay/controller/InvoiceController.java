@@ -30,7 +30,7 @@ public class InvoiceController {
         invoiceService.addInvoice(invoiceRegistryForm);
     }
 
-    @PostMapping
+    @PostMapping("/all")
     public Set<InvoiceDto> showInvoices(Long estateId) {
 
        return invoiceService.findAllEstateInvoices(estateId).stream()
