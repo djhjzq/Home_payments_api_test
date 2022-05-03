@@ -1,14 +1,12 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.EstateRegistryForm;
-import com.demchenko.homepay.dto.response.EstateResponse;
 import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
 
 
 @RestController
@@ -26,11 +24,6 @@ public class EstateController {
         this.estateService = estateService;
         this.cityService = cityService;
         this.streetService = streetService;
-    }
-
-    @PostMapping
-    public Set<EstateResponse> showAllEstates(Set<Long> estatesId) {
-        return null;
     }
 
     @PostMapping("/new")

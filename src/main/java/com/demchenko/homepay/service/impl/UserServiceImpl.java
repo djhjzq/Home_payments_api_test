@@ -1,9 +1,10 @@
 package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
-import com.demchenko.homepay.dto.response.UserResponse;
+import com.demchenko.homepay.dto.response.UserDto;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
+import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.repository.UserRepository;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findUserByEmailAndPassword(String email, String password) {
-        UserResponse userResponse = new UserResponse();
-        User user = userRepository.findUserByEmailAndPassword(email, password)
-                .orElseThrow(() -> new RuntimeException("Incorrect email or password"));
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setId(user.getId());
-        return userResponse;
+    public UserDto findUserByEmailAndPassword(String email, String password) {
+        return UserMapper.INSTANCE.userToUserDto(userRepository.findUserByEmailAndPassword(email, password).
+                orElseThrow(()-> new RuntimeException("USER NOT FOUND")));
     }
 
     @Override
