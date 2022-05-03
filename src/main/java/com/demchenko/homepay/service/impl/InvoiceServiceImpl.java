@@ -9,6 +9,8 @@ import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -16,6 +18,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
 
     private final EstateService estateService;
+
 
     @Autowired
     public InvoiceServiceImpl(InvoiceRepository invoiceRepository, EstateService estateService) {
@@ -37,5 +40,15 @@ public class InvoiceServiceImpl implements InvoiceService {
         createInvoice(invoiceRegistryForm.getName(),
                 invoiceRegistryForm.getInvoiceType(),
                 invoiceRegistryForm.getEstateId());
+    }
+
+    @Override
+    public Invoice findInvoiceByEstateId(Long estateId) {
+        return invoiceRepository.findInvoiceByEstate(estateService.findEstateById(estateId));
+    }
+
+    @Override
+    public Set<Invoice> findAllEstateInvoices(Long estateId) {
+        return estateService.findEstateById(estateId).getInvoiceSet();
     }
 }

@@ -15,15 +15,19 @@ public class UserController {
 
     private final UserService userService;
 
+    private final UserMapper userMapper;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping
     public UserDto findUserByEmailAndPassword(@RequestParam String email,
                                                    @RequestParam String password) {
-        return userService.findUserByEmailAndPassword(email, password);
+        return userMapper.userToUserDto(userService.
+                findUserByEmailAndPassword(email, password));
     }
 
     @PostMapping("/new")

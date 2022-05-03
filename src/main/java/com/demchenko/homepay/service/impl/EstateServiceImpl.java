@@ -11,6 +11,8 @@ import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class EstateServiceImpl implements EstateService {
 
@@ -62,5 +64,10 @@ public class EstateServiceImpl implements EstateService {
     public Estate findEstateById(Long id) {
         return estateRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("estate with this id not found"));
+    }
+
+    @Override
+    public Set<Estate> findAllEstatesByUserId(Long userId) {
+        return userService.findUserById(userId).getEstateSet();
     }
 }

@@ -20,7 +20,7 @@ public class Estate extends BaseEntity {
     private Integer flatNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "estateSet")
-    private Set<User> userSet;
+    private Set<User> userSets;
 
     @ManyToOne
     private City city;

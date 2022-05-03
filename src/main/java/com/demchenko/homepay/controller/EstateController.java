@@ -1,12 +1,16 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.EstateRegistryForm;
+import com.demchenko.homepay.dto.response.EstateDto;
+import com.demchenko.homepay.mapper.EstateMapper;
 import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -19,11 +23,20 @@ public class EstateController {
 
     private final StreetService streetService;
 
+    private final EstateMapper estateMapper;
+
     @Autowired
-    public EstateController(EstateService estateService, CityService cityService, StreetService streetService) {
+    public EstateController(EstateService estateService, CityService cityService, StreetService streetService, EstateMapper estateMapper) {
         this.estateService = estateService;
         this.cityService = cityService;
         this.streetService = streetService;
+        this.estateMapper = estateMapper;
+    }
+
+    @PostMapping
+    public Set<EstateDto> showObjects(Long userId) {
+        return estateService.findAllEstatesByUserId(userId).stream()
+                .map(estateMapper:: estateToEstateDto).collect(Collectors.toSet());
     }
 
     @PostMapping("/new")

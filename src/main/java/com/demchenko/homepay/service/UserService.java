@@ -11,7 +11,7 @@ public interface UserService {
 
     User findUserById(Long userId);
 
-    UserDto findUserByEmailAndPassword(String email, String password);
+    User findUserByEmailAndPassword(String email, String password);
 
     void createUser(String firstName, String lastName,
                     String email, String password);
