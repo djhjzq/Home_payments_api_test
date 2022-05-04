@@ -1,6 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
-import com.demchenko.homepay.dto.request.PaymentRequest;
+import com.demchenko.homepay.dto.request.PaymentRegistryForm;
 import com.demchenko.homepay.entity.Payment;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.PaymentRepository;
@@ -44,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void registryPayment(PaymentRequest paymentRequest) {
+    public void registryPayment(PaymentRegistryForm paymentRequest) {
         createPayment(paymentRequest.userId(), paymentRequest.invoiceId(),
                 paymentRequest.amount());
     }

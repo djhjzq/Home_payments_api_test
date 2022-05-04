@@ -1,6 +1,6 @@
 package com.demchenko.homepay.controller;
 
-import com.demchenko.homepay.dto.request.PaymentRequest;
+import com.demchenko.homepay.dto.request.PaymentRegistryForm;
 import com.demchenko.homepay.dto.response.PaymentDto;
 import com.demchenko.homepay.mapper.PaymentMapper;
 import com.demchenko.homepay.service.PaymentService;
@@ -27,7 +27,7 @@ public class PaymentController {
     }
 
     @PostMapping("/new")
-    public void registryPayment(PaymentRequest paymentRequest) {
+    public void registryPayment(PaymentRegistryForm paymentRequest) {
         paymentService.registryPayment(paymentRequest);
     }
 

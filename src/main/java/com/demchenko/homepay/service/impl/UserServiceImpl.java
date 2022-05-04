@@ -1,6 +1,7 @@
 package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
+import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.UserRepository;
@@ -49,5 +50,14 @@ public class UserServiceImpl implements UserService {
     public void registryUser(UserRegistryForm userRegistryForm) {
         createUser(userRegistryForm.firstName(), userRegistryForm.lastName(),
                 userRegistryForm.email(), userRegistryForm.password());
+    }
+
+    @Override
+    public void updateUser(UserUpdateForm userUpdateForm) {
+        User user = findUserById(userUpdateForm.userId());
+        user.setFirstName(userUpdateForm.firstName());
+        user.setLastName(userUpdateForm.lastName());
+        user.setEmail(userUpdateForm.email());
+        userRepository.saveAndFlush(user);
     }
 }

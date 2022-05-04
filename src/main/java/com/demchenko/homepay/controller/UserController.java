@@ -1,6 +1,7 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
+import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.dto.response.UserDto;
 import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.UserService;
@@ -33,6 +34,11 @@ public class UserController {
     @PostMapping("/new")
     public void registry(UserRegistryForm userRegistryForm) {
          userService.registryUser(userRegistryForm);
+    }
+
+    @PatchMapping("/edit")
+    public void editUser(UserUpdateForm userUpdateForm) {
+        userService.updateUser(userUpdateForm);
     }
 
 }
