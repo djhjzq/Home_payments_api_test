@@ -20,4 +20,6 @@ public interface UserService {
 
     void updateUser(UserUpdateForm userUpdateForm);
 
+    void deleteUser(Long userId);
+
 }

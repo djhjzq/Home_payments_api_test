@@ -41,4 +41,9 @@ public class UserController {
         userService.updateUser(userUpdateForm);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteUser(@RequestParam Long userId) {
+        userService.deleteUser(userId);
+    }
+
 }

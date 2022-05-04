@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userUpdateForm.email());
         userRepository.saveAndFlush(user);
     }
+
+    @Override
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
 }
