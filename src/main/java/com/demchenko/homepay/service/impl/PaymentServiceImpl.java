@@ -31,7 +31,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void createPayment(Long invoiceId, Long userId, BigDecimal amount) {
+    public void createPayment(Long userId, Long invoiceId, BigDecimal amount) {
         Date date = new Date();
         Payment payment = new Payment();
         User user = userService.findUserById(userId);
