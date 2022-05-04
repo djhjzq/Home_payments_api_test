@@ -27,8 +27,7 @@ public class  User extends Person {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private Set<Payment> paymentSet;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -21,7 +21,7 @@ public class Payment extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Invoice invoice;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column(name = "amount")
