@@ -28,7 +28,8 @@ public class Estate extends BaseEntity {
     @ManyToOne
     private Street street;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estate")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estate",
+    cascade = CascadeType.ALL)
     private Set<Invoice> invoiceSet;
 
     private EstateType estateType;

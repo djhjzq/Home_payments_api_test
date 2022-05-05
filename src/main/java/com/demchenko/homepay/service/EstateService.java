@@ -17,4 +17,6 @@ public interface EstateService {
     Estate findEstateById(Long id);
 
     Set<Estate> findAllEstatesByUserId(Long userId);
+
+    void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId);
 }

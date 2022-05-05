@@ -69,4 +69,16 @@ public class EstateServiceImpl implements EstateService {
     public Set<Estate> findAllEstatesByUserId(Long userId) {
         return userService.findUserById(userId).getEstateSet();
     }
+
+    @Override
+    public void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId) {
+        Estate estate = findEstateById(estateId);
+        userService.findUserById(userId).getEstateSet()
+                .remove(estate);
+        cityService.findCityById(cityId).getEstateSet()
+                .remove(estate);
+        streetService.findStreetById(streetId).getEstateSet()
+                .remove(estate);
+        estateRepository.deleteById(estateId);
+    }
 }

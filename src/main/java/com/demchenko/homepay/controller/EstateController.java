@@ -54,4 +54,9 @@ public class EstateController {
         streetService.createStreet(cityId, streetName);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId) {
+        estateService.deleteEstate(userId, cityId, streetId, estateId);
+    }
+
 }
