@@ -37,4 +37,9 @@ public class InvoiceController {
                .map(invoiceMapper::invoiceToInvoiceDto).collect(Collectors.toSet());
     }
 
+    @DeleteMapping("/delete")
+    public void deleteInvoice(Long estateId, Long invoiceId) {
+        invoiceService.deleteInvoice(estateId, invoiceId);
+    }
+
 }

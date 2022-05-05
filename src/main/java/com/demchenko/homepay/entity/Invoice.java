@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Set;
 
 @Getter
@@ -19,6 +18,7 @@ public class Invoice extends NamedEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Estate estate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice",
+            cascade = CascadeType.ALL)
     private Set<Payment> paymentSet;
 }

@@ -51,4 +51,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Set<Invoice> findAllEstateInvoices(Long estateId) {
         return estateService.findEstateById(estateId).getInvoiceSet();
     }
+
+    @Override
+    public void deleteInvoice(Long estateId, Long invoiceId) {
+        estateService.findEstateById(estateId).getInvoiceSet()
+                .remove(findInvoiceById(invoiceId));
+        invoiceRepository.deleteById(invoiceId);
+    }
 }
