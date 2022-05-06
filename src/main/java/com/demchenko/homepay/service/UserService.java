@@ -5,6 +5,7 @@ import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.entity.User;
 
+import java.util.List;
 
 
 public interface UserService {
@@ -21,5 +22,9 @@ public interface UserService {
     void updateUser(UserUpdateForm userUpdateForm);
 
     void deleteUser(Long userId);
+
+    List<User> findAllUsers();
+
+    List<User> searchUsersBy(String lastName, String email);
 
 }

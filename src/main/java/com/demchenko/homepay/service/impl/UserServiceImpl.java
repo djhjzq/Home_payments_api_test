@@ -6,10 +6,12 @@ import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.UserRepository;
 import com.demchenko.homepay.service.UserService;
+import com.demchenko.homepay.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Service
@@ -64,5 +66,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> searchUsersBy(String lastName, String email) {
+        UserSpecification userSpecification = new UserSpecification(lastName, email);
+        return userRepository.findAll(userSpecification);
     }
 }
