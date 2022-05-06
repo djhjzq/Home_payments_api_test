@@ -4,10 +4,7 @@ import com.demchenko.homepay.dto.response.EstateDto;
 import com.demchenko.homepay.mapper.EstateMapper;
 import com.demchenko.homepay.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +14,6 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     private final AdminService adminService;
-
     private final EstateMapper estateMapper;
 
     @Autowired
@@ -27,11 +23,18 @@ public class AdminController {
     }
 
     @PostMapping("/search")
-    private List<EstateDto> searchEstatesBy(@RequestParam(required = false) Long cityId,
+    public List<EstateDto> searchObjectsBy(@RequestParam(required = false) Long cityId,
                                             @RequestParam(required = false) Long streetId,
                                             @RequestParam(required = false) Integer houseNumber,
                                             @RequestParam(required = false) Long estateType) {
         return adminService.search(cityId, streetId, houseNumber, estateType).stream()
                 .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
     }
+
+    @GetMapping("/objects")
+    public List<EstateDto> findAllObjects() {
+        return adminService.findAllObjects().stream()
+                .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
+    }
+
 }

@@ -8,9 +8,11 @@ import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import com.demchenko.homepay.service.UserService;
+import com.demchenko.homepay.specification.EstateSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -80,5 +82,16 @@ public class EstateServiceImpl implements EstateService {
         streetService.findStreetById(streetId).getEstateSet()
                 .remove(estate);
         estateRepository.deleteById(estateId);
+    }
+
+    @Override
+    public List<Estate> search(Long cityId, Long streetId, Integer houseNumber, Long estateType) {
+        EstateSpecification estateSpecification = new EstateSpecification(cityId, streetId, houseNumber, estateType);
+        return estateRepository.findAll(estateSpecification);
+    }
+
+    @Override
+    public List<Estate> findAllEstates() {
+        return estateRepository.findAll();
     }
 }

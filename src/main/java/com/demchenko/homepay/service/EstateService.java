@@ -3,6 +3,7 @@ package com.demchenko.homepay.service;
 import com.demchenko.homepay.dto.request.EstateRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 
+import java.util.List;
 import java.util.Set;
 
 public interface EstateService {
@@ -19,4 +20,10 @@ public interface EstateService {
     Set<Estate> findAllEstatesByUserId(Long userId);
 
     void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId);
+
+    List<Estate> search(Long cityId, Long streetId, Integer houseNumber, Long estateType);
+
+    List<Estate> findAllEstates();
+
+
 }
