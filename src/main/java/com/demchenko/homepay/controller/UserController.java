@@ -8,6 +8,9 @@ import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 
 @RestController
@@ -25,24 +28,24 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto findUserByEmailAndPassword(@RequestParam String email,
-                                                   @RequestParam String password) {
+    public UserDto findUserByEmailAndPassword(@NotBlank String email,
+                                                   @NotBlank String password) {
         return userMapper.userToUserDto(userService.
                 findUserByEmailAndPassword(email, password));
     }
 
     @PostMapping("/new")
-    public void registry(UserRegistryForm userRegistryForm) {
+    public void registry(@Valid UserRegistryForm userRegistryForm) {
          userService.registryUser(userRegistryForm);
     }
 
     @PatchMapping("/edit")
-    public void editUser(UserUpdateForm userUpdateForm) {
+    public void editUser(@Valid UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);
     }
 
     @DeleteMapping("/delete")
-    public void deleteUser(@RequestParam Long userId) {
+    public void deleteUser(@Positive Long userId) {
         userService.deleteUser(userId);
     }
 

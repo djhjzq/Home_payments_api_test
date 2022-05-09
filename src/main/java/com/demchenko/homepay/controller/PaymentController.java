@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,12 +29,12 @@ public class PaymentController {
     }
 
     @PostMapping("/new")
-    public void registryPayment(PaymentRegistryForm paymentRequest) {
+    public void registryPayment(@Valid PaymentRegistryForm paymentRequest) {
         paymentService.registryPayment(paymentRequest);
     }
 
     @PostMapping("/all")
-    public Set<PaymentDto> showAllPayments(Long userId) {
+    public Set<PaymentDto> showAllPayments(@Positive Long userId) {
         return paymentService.showAllPaymentsByUser(userId).stream()
                 .map(paymentMapper:: paymentToPaymentDto).collect(Collectors.toSet());
     }

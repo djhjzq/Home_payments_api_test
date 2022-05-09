@@ -8,6 +8,9 @@ import com.demchenko.homepay.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,17 +30,17 @@ public class AdminController {
     }
 
     @PostMapping("objects/search")
-    public List<EstateDto> searchObjectsBy(@RequestParam(required = false) Long cityId,
-                                            @RequestParam(required = false) Long streetId,
-                                            @RequestParam(required = false) Integer houseNumber,
-                                            @RequestParam(required = false) Long estateType) {
+    public List<EstateDto> searchObjectsBy(@RequestParam(required = false) @Positive Long cityId,
+                                            @RequestParam(required = false) @Positive Long streetId,
+                                            @RequestParam(required = false) @Positive Integer houseNumber,
+                                            @RequestParam(required = false) @PositiveOrZero Long estateType) {
         return adminService.search(cityId, streetId, houseNumber, estateType).stream()
                 .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
     }
 
     @PostMapping("users/search")
-    public List<UserDto> searchUsersBy(@RequestParam(required = false) String lastName,
-                                       @RequestParam(required = false) String email) {
+    public List<UserDto> searchUsersBy(@RequestParam(required = false) @NotBlank String lastName,
+                                       @RequestParam(required = false) @NotBlank String email) {
         return adminService.searchUsers(lastName, email).stream()
                 .map(userMapper :: userToUserDto).collect(Collectors.toList());
     }

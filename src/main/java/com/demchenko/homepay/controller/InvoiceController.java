@@ -7,6 +7,8 @@ import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,19 +28,19 @@ public class InvoiceController {
     }
 
     @PostMapping("/new")
-    public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
+    public void addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
         invoiceService.addInvoice(invoiceRegistryForm);
     }
 
     @PostMapping("/all")
-    public Set<InvoiceDto> showInvoices(Long estateId) {
+    public Set<InvoiceDto> showInvoices(@Positive Long estateId) {
 
        return invoiceService.findAllEstateInvoices(estateId).stream()
                .map(invoiceMapper::invoiceToInvoiceDto).collect(Collectors.toSet());
     }
 
     @DeleteMapping("/delete")
-    public void deleteInvoice(Long estateId, Long invoiceId) {
+    public void deleteInvoice(@Positive Long estateId, @Positive Long invoiceId) {
         invoiceService.deleteInvoice(estateId, invoiceId);
     }
 

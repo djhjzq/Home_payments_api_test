@@ -9,6 +9,9 @@ import com.demchenko.homepay.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,28 +37,29 @@ public class EstateController {
     }
 
     @PostMapping("/all")
-    public Set<EstateDto> showObjects(Long userId) {
+    public Set<EstateDto> showObjects(@Positive Long userId) {
         return estateService.findAllEstatesByUserId(userId).stream()
                 .map(estateMapper:: estateToEstateDto).collect(Collectors.toSet());
     }
 
     @PostMapping("/new")
-    public void registryEstate(EstateRegistryForm estateRegistryForm) {
+    public void registryEstate(@Valid EstateRegistryForm estateRegistryForm) {
         estateService.registryEstate(estateRegistryForm);
     }
 
     @PostMapping("/new/city")
-    public void createCity(@RequestParam String cityName) {
+    public void createCity(@NotBlank String cityName) {
         cityService.createCity(cityName);
     }
 
     @PostMapping("/new/street")
-    public void createStreet(@RequestParam Long cityId, String streetName) {
+    public void createStreet(@Positive Long cityId, @NotBlank String streetName) {
         streetService.createStreet(cityId, streetName);
     }
 
     @DeleteMapping("/delete")
-    public void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId) {
+    public void deleteEstate(@Positive Long userId, @Positive Long cityId,
+                             @Positive Long streetId, @Positive Long estateId) {
         estateService.deleteEstate(userId, cityId, streetId, estateId);
     }
 

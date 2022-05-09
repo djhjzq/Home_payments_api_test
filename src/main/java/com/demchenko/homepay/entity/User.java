@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name = "users")
 public class  User extends Person {
 
+
     @Column(name = "email")
     private String email;
 
