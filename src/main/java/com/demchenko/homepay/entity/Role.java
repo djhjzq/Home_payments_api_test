@@ -1,5 +1,12 @@
 package com.demchenko.homepay.entity;
 
-public enum Role {
-    USER, ADMIN
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
+    ROLE_USER, ROLE_ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

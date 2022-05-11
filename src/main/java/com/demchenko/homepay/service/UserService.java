@@ -12,7 +12,7 @@ public interface UserService {
 
     User findUserById(Long userId);
 
-    User findUserByEmailAndPassword(String email, String password);
+    User findUserByEmail(String email);
 
     void createUser(String firstName, String lastName,
                     String email, String password);

@@ -27,13 +27,6 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @PostMapping
-    public UserDto findUserByEmailAndPassword(@NotBlank String email,
-                                                   @NotBlank String password) {
-        return userMapper.userToUserDto(userService.
-                findUserByEmailAndPassword(email, password));
-    }
-
     @PostMapping("/new")
     public void registry(@Valid UserRegistryForm userRegistryForm) {
          userService.registryUser(userRegistryForm);

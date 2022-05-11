@@ -26,6 +26,7 @@ public class  User extends Person {
     private BigDecimal balance;
 
     @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")

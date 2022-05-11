@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmailAndPassword(String email, String password) {
-        return userRepository.findUserByEmailAndPassword(email, password).
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email).
                 orElseThrow(()-> new RuntimeException("USER NOT FOUND"));
     }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setPassword(password);
         user.setBalance(BigDecimal.valueOf(0));
-        user.setRole(Role.USER);
+        user.setRole(Role.ROLE_USER);
         userRepository.save(user);
     }
 

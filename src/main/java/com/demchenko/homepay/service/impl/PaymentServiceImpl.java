@@ -4,9 +4,9 @@ import com.demchenko.homepay.dto.request.PaymentRegistryForm;
 import com.demchenko.homepay.entity.Payment;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.repository.PaymentRepository;
-import com.demchenko.homepay.service.InvoiceService;
 import com.demchenko.homepay.service.PaymentService;
 import com.demchenko.homepay.service.UserService;
+import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
