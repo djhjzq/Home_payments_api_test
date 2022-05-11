@@ -5,6 +5,7 @@ import com.demchenko.homepay.dto.response.InvoiceDto;
 import com.demchenko.homepay.mapper.InvoiceMapper;
 import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,7 +15,8 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("/api/user/invoices")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class InvoiceController {
 
     private final InvoiceService invoiceService;

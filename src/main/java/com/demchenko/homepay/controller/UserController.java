@@ -2,29 +2,24 @@ package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
-import com.demchenko.homepay.dto.response.UserDto;
-import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class UserController {
-
     private final UserService userService;
 
-    private final UserMapper userMapper;
-
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @PostMapping("/new")

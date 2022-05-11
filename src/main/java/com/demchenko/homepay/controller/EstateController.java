@@ -7,17 +7,19 @@ import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/objects")
+@RequestMapping("/api/user/objects")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class EstateController {
 
     private final EstateService estateService;
@@ -48,12 +50,12 @@ public class EstateController {
     }
 
     @PostMapping("/new/city")
-    public void createCity(@NotBlank String cityName) {
+    public void createCity(@Size(min = 2, max = 20) String cityName) {
         cityService.createCity(cityName);
     }
 
     @PostMapping("/new/street")
-    public void createStreet(@Positive Long cityId, @NotBlank String streetName) {
+    public void createStreet(@Positive Long cityId, @Size(min = 2, max = 20) String streetName) {
         streetService.createStreet(cityId, streetName);
     }
 

@@ -6,16 +6,19 @@ import com.demchenko.homepay.mapper.EstateMapper;
 import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
+@PreAuthorize("hasRole ('ROLE_ADMIN')")
 public class AdminController {
 
     private final AdminService adminService;
@@ -39,8 +42,8 @@ public class AdminController {
     }
 
     @PostMapping("users/search")
-    public List<UserDto> searchUsersBy(@RequestParam(required = false) @NotBlank String lastName,
-                                       @RequestParam(required = false) @NotBlank String email) {
+    public List<UserDto> searchUsersBy(@RequestParam(required = false) @Size(min = 2, max = 20) String lastName,
+                                       @RequestParam(required = false) @Email String email) {
         return adminService.searchUsers(lastName, email).stream()
                 .map(userMapper :: userToUserDto).collect(Collectors.toList());
     }
