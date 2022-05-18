@@ -31,8 +31,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Estate> findAllObjects() {
-        return estateService.findAllEstates();
+    public Page<Estate> findAllObjects(Pageable pageable) {
+        return estateService.findAllEstates(pageable);
     }
 
     @Override

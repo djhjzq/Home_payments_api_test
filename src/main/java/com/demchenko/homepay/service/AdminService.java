@@ -12,7 +12,7 @@ public interface AdminService {
     List<Estate> search(Long cityId, Long streetId, Integer houseNumber,
                         Long estateType);
 
-    List<Estate> findAllObjects();
+    Page<Estate> findAllObjects(Pageable pageable);
 
     Page<User> findAllUsers(Pageable pageable);
 

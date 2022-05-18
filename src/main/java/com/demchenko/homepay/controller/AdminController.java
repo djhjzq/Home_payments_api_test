@@ -50,8 +50,9 @@ public class AdminController {
     }
 
     @GetMapping("/objects")
-    public List<EstateDto> findAllObjects() {
-        return adminService.findAllObjects().stream()
+    public List<EstateDto> findAllObjects(@RequestParam int pageNumber) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, 5);
+        return adminService.findAllObjects(pageRequest).stream()
                 .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
     }
 

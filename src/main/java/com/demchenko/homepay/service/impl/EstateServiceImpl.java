@@ -10,6 +10,8 @@ import com.demchenko.homepay.service.UserService;
 import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.specification.EstateSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -91,7 +93,7 @@ public class EstateServiceImpl implements EstateService {
     }
 
     @Override
-    public List<Estate> findAllEstates() {
-        return estateRepository.findAll();
+    public Page<Estate> findAllEstates(Pageable pageable) {
+        return estateRepository.findAll(pageable);
     }
 }
