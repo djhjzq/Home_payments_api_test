@@ -6,6 +6,8 @@ import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.dto.response.JwtResponse;
 import com.demchenko.homepay.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    List<User> findAllUsers();
+    Page<User> findAllUsers(Pageable pageable);
 
     List<User> searchUsersBy(String lastName, String email);
 

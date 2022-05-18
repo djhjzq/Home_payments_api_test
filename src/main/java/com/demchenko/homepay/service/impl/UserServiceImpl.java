@@ -13,6 +13,8 @@ import com.demchenko.homepay.security.service.UserDetailsImpl;
 import com.demchenko.homepay.service.UserService;
 import com.demchenko.homepay.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -100,8 +102,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public Page<User> findAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
@@ -120,7 +122,6 @@ public class UserServiceImpl implements UserService {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        String role = userDetails.getAuthorities().stream().findFirst().toString();
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setToken(jwt);
         jwtResponse.setId(userDetails.getId());

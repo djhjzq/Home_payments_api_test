@@ -6,6 +6,7 @@ import com.demchenko.homepay.mapper.EstateMapper;
 import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,8 +56,9 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<UserDto> findAllUsers() {
-        return adminService.findAllUsers().stream()
+    public List<UserDto> findAllUsers(@RequestParam int pageNumber) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, 5);
+        return adminService.findAllUsers(pageRequest).stream()
                 .map(userMapper :: userToUserDto).collect(Collectors.toList());
     }
 

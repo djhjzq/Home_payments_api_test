@@ -6,6 +6,8 @@ import com.demchenko.homepay.service.AdminService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +36,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
+    public Page<User> findAllUsers(Pageable pageable) {
+        return userService.findAllUsers(pageable);
     }
 
     @Override
