@@ -5,6 +5,7 @@ import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.response.JwtResponse;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid UserLoginForm userLoginForm) {
-       return userService.authenticateUser(userLoginForm);
+        return new ResponseEntity<>(userService.authenticateUser(userLoginForm),
+                HttpStatus.OK);
     }
 
     @PostMapping("/registry")

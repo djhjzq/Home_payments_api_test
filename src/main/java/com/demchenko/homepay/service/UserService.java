@@ -32,7 +32,7 @@ public interface UserService {
 
     List<User> searchUsersBy(String lastName, String email);
 
-    ResponseEntity<JwtResponse> authenticateUser(UserLoginForm userLoginForm);
+    JwtResponse authenticateUser(UserLoginForm userLoginForm);
 
     Boolean existByEmail(String email);
 

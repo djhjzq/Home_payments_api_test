@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public ResponseEntity<JwtResponse> authenticateUser(UserLoginForm userLoginForm) {
+    public JwtResponse authenticateUser(UserLoginForm userLoginForm) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userLoginForm.email(), userLoginForm.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -132,6 +132,6 @@ public class UserServiceImpl implements UserService {
         else {
             jwtResponse.setRole(Role.ROLE_ADMIN);
         }
-        return ResponseEntity.ok(jwtResponse);
+        return jwtResponse;
     }
 }
