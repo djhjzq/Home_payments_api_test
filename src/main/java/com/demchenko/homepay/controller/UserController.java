@@ -12,7 +12,7 @@ import javax.validation.constraints.Positive;
 
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class UserController {
     private final UserService userService;

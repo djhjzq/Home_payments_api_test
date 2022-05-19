@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/user/invoices")
+@RequestMapping("/user/invoices")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class InvoiceController {
 

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/user/objects")
+@RequestMapping("/user/objects")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class EstateController {
 
