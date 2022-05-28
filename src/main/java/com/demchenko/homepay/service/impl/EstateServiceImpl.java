@@ -3,6 +3,7 @@ package com.demchenko.homepay.service.impl;
 import com.demchenko.homepay.dto.request.EstateRegistryForm;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.EstateType;
+import com.demchenko.homepay.exception.EstateNotFoundException;
 import com.demchenko.homepay.repository.EstateRepository;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
@@ -66,7 +67,8 @@ public class EstateServiceImpl implements EstateService {
     @Override
     public Estate findEstateById(Long id) {
         return estateRepository.findById(id).
-                orElseThrow(()-> new RuntimeException("estate with this id not found"));
+                orElseThrow(()-> new EstateNotFoundException
+                        ("Estate by " + id + " was not found."));
     }
 
     @Override

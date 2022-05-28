@@ -3,6 +3,7 @@ package com.demchenko.homepay.service.impl;
 import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
 import com.demchenko.homepay.entity.Invoice;
 import com.demchenko.homepay.entity.InvoiceType;
+import com.demchenko.homepay.exception.InvoiceNotFoundException;
 import com.demchenko.homepay.repository.InvoiceRepository;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.InvoiceService;
@@ -44,7 +45,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice findInvoiceById(Long invoiceId) {
         return invoiceRepository.findById(invoiceId)
-                .orElseThrow(()-> new RuntimeException("INVOICE NOT FOUND"));
+                .orElseThrow(()-> new InvoiceNotFoundException
+                        ("Invoice by id " + invoiceId + " was not found."));
     }
 
     @Override

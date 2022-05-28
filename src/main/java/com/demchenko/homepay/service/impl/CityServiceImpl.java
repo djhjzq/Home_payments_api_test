@@ -1,6 +1,7 @@
 package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.entity.City;
+import com.demchenko.homepay.exception.CityNotFoundException;
 import com.demchenko.homepay.repository.CityRepository;
 import com.demchenko.homepay.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public City findCityById(Long cityId) {
         return cityRepository.findById(cityId)
-                .orElseThrow(() -> new RuntimeException("City with this id does not found"));
+                .orElseThrow(() -> new CityNotFoundException
+                        ("City by id " + cityId + " was not found."));
     }
 }

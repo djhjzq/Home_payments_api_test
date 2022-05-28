@@ -7,6 +7,7 @@ import com.demchenko.homepay.dto.response.JwtResponse;
 import com.demchenko.homepay.dto.response.MessageResponse;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
+import com.demchenko.homepay.exception.UserNotFoundException;
 import com.demchenko.homepay.repository.UserRepository;
 import com.demchenko.homepay.security.jwt.JwtUtils;
 import com.demchenko.homepay.security.service.UserDetailsImpl;
@@ -50,13 +51,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("user with this id not found"));
+                .orElseThrow(() -> new UserNotFoundException
+                        ("User by id " + userId + " was not found."));
     }
 
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email).
-                orElseThrow(()-> new RuntimeException("USER NOT FOUND"));
+                orElseThrow(()-> new UserNotFoundException
+                        ("User by email " + email + " was not found."));
     }
 
     @Override
