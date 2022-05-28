@@ -7,6 +7,8 @@ import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,33 +36,33 @@ public class AdminController {
     }
 
     @PostMapping("objects/search")
-    public List<EstateDto> searchObjectsBy(@RequestParam(required = false) @Positive Long cityId,
-                                            @RequestParam(required = false) @Positive Long streetId,
-                                            @RequestParam(required = false) @Positive Integer houseNumber,
-                                            @RequestParam(required = false) @PositiveOrZero Long estateType) {
-        return adminService.search(cityId, streetId, houseNumber, estateType).stream()
-                .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
+    public ResponseEntity<List<EstateDto>> searchObjectsBy(@RequestParam(required = false) @Positive Long cityId,
+                                                          @RequestParam(required = false) @Positive Long streetId,
+                                                          @RequestParam(required = false) @Positive Integer houseNumber,
+                                                          @RequestParam(required = false) @PositiveOrZero Long estateType) {
+        return new ResponseEntity<>(adminService.search(cityId, streetId, houseNumber, estateType).stream()
+                .map(estateMapper :: estateToEstateDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping("users/search")
-    public List<UserDto> searchUsersBy(@RequestParam(required = false) @Size(min = 2, max = 20) String lastName,
+    public ResponseEntity<List<UserDto>> searchUsersBy(@RequestParam(required = false) @Size(min = 2, max = 20) String lastName,
                                        @RequestParam(required = false) @Email String email) {
-        return adminService.searchUsers(lastName, email).stream()
-                .map(userMapper :: userToUserDto).collect(Collectors.toList());
+        return new ResponseEntity<>(adminService.searchUsers(lastName, email).stream()
+                .map(userMapper :: userToUserDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/objects")
-    public List<EstateDto> findAllObjects(@RequestParam int pageNumber) {
+    public ResponseEntity<List<EstateDto>> findAllObjects(@RequestParam int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber, 5);
-        return adminService.findAllObjects(pageRequest).stream()
-                .map(estateMapper :: estateToEstateDto).collect(Collectors.toList());
+        return new ResponseEntity<>(adminService.findAllObjects(pageRequest).stream()
+                .map(estateMapper :: estateToEstateDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/users")
-    public List<UserDto> findAllUsers(@RequestParam int pageNumber) {
+    public ResponseEntity<List<UserDto>> findAllUsers(@RequestParam int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber, 5);
-        return adminService.findAllUsers(pageRequest).stream()
-                .map(userMapper :: userToUserDto).collect(Collectors.toList());
+        return new ResponseEntity<>(adminService.findAllUsers(pageRequest).stream()
+                .map(userMapper :: userToUserDto).collect(Collectors.toList()), HttpStatus.OK);
     }
 
 }

@@ -4,6 +4,8 @@ import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,18 +25,21 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public void registry(@Valid UserRegistryForm userRegistryForm) {
+    public ResponseEntity<?> registry(@Valid UserRegistryForm userRegistryForm) {
          userService.registryUser(userRegistryForm);
+         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/edit")
-    public void editUser(@Valid UserUpdateForm userUpdateForm) {
+    public ResponseEntity<?> editUser(@Valid UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public void deleteUser(@Positive Long userId) {
+    public ResponseEntity<?> deleteUser(@Positive Long userId) {
         userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

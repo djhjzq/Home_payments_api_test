@@ -5,6 +5,8 @@ import com.demchenko.homepay.dto.response.InvoiceDto;
 import com.demchenko.homepay.mapper.InvoiceMapper;
 import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,20 +32,22 @@ public class InvoiceController {
     }
 
     @PostMapping("/new")
-    public void addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
+    public ResponseEntity<?> addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
         invoiceService.addInvoice(invoiceRegistryForm);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/all")
-    public Set<InvoiceDto> showInvoices(@Positive Long estateId) {
+    public ResponseEntity<Set<InvoiceDto>> showInvoices(@Positive Long estateId) {
 
-       return invoiceService.findAllEstateInvoices(estateId).stream()
-               .map(invoiceMapper::invoiceToInvoiceDto).collect(Collectors.toSet());
+       return new ResponseEntity<>(invoiceService.findAllEstateInvoices(estateId).stream()
+               .map(invoiceMapper::invoiceToInvoiceDto).collect(Collectors.toSet()), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public void deleteInvoice(@Positive Long estateId, @Positive Long invoiceId) {
+    public ResponseEntity<?> deleteInvoice(@Positive Long estateId, @Positive Long invoiceId) {
         invoiceService.deleteInvoice(estateId, invoiceId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

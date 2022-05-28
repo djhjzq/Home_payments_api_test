@@ -7,6 +7,8 @@ import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,30 +41,34 @@ public class EstateController {
     }
 
     @PostMapping("/all")
-    public Set<EstateDto> showObjects(@Positive Long userId) {
-        return estateService.findAllEstatesByUserId(userId).stream()
-                .map(estateMapper:: estateToEstateDto).collect(Collectors.toSet());
+    public ResponseEntity<Set<EstateDto>> showObjects(@Positive Long userId) {
+        return new ResponseEntity<>(estateService.findAllEstatesByUserId(userId).stream()
+                .map(estateMapper:: estateToEstateDto).collect(Collectors.toSet()), HttpStatus.OK);
     }
 
     @PostMapping("/new")
-    public void registryEstate(@Valid EstateRegistryForm estateRegistryForm) {
+    public ResponseEntity<?> registryEstate(@Valid EstateRegistryForm estateRegistryForm) {
         estateService.registryEstate(estateRegistryForm);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/new/city")
-    public void createCity(@Size(min = 2, max = 20) String cityName) {
+    public ResponseEntity<?> createCity(@Size(min = 2, max = 20) String cityName) {
         cityService.createCity(cityName);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/new/street")
-    public void createStreet(@Positive Long cityId, @Size(min = 2, max = 20) String streetName) {
+    public ResponseEntity<?> createStreet(@Positive Long cityId, @Size(min = 2, max = 20) String streetName) {
         streetService.createStreet(cityId, streetName);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public void deleteEstate(@Positive Long userId, @Positive Long cityId,
+    public ResponseEntity<?> deleteEstate(@Positive Long userId, @Positive Long cityId,
                              @Positive Long streetId, @Positive Long estateId) {
         estateService.deleteEstate(userId, cityId, streetId, estateId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
