@@ -34,7 +34,7 @@ public class InvoiceController {
     @PostMapping("/new")
     public ResponseEntity<InvoiceResponse> addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
         return new ResponseEntity<>(invoiceMapper.invoiceToInvoiceDto(invoiceService.addInvoice(invoiceRegistryForm)),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/all")

@@ -53,19 +53,19 @@ public class EstateController {
     @PostMapping("/new")
     public ResponseEntity<EstateResponse> registryEstate(@Valid EstateRegistryForm estateRegistryForm) {
         return new ResponseEntity<>(estateMapper.estateToEstateDto(estateService
-                .registryEstate(estateRegistryForm)),HttpStatus.OK);
+                .registryEstate(estateRegistryForm)),HttpStatus.CREATED);
     }
 
     @PostMapping("/new/city")
     public ResponseEntity<CityResponse> createCity(@Size(min = 2, max = 20) String cityName) {
         return new ResponseEntity<>(cityMapper.cityToCityResponse(cityService.createCity(cityName)),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/new/street")
     public ResponseEntity<StreetResponse> createStreet(@Positive Long cityId, @Size(min = 2, max = 20) String streetName) {
         return new ResponseEntity<>(streetMapper.streetToStreetResponse(streetService.createStreet(cityId, streetName)),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete")

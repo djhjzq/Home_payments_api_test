@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-
     private final UserMapper userMapper;
     private final JwtUtils jwtUtils;
 
@@ -81,7 +80,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = createUser(userRegistryForm.firstName(), userRegistryForm.lastName(),
                 userRegistryForm.email(), passwordEncoder.encode(userRegistryForm.password()));
-        return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.CREATED);
     }
 
     @Override

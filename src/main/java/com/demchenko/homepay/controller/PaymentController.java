@@ -35,7 +35,7 @@ public class PaymentController {
     @PostMapping("/new")
     public ResponseEntity<PaymentResponse> registryPayment(@Valid PaymentRegistryForm paymentRequest) {
         return new ResponseEntity<>(paymentMapper.paymentToPaymentDto(paymentService.registryPayment(paymentRequest)),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/all")
