@@ -4,10 +4,11 @@ import com.demchenko.homepay.dto.request.UserLoginForm;
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.dto.response.JwtResponse;
-import com.demchenko.homepay.dto.response.MessageResponse;
+import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.Role;
 import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.exception.UserNotFoundException;
+import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.repository.UserRepository;
 import com.demchenko.homepay.security.jwt.JwtUtils;
 import com.demchenko.homepay.security.service.UserDetailsImpl;
@@ -16,6 +17,7 @@ import com.demchenko.homepay.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,21 +32,19 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
-
     private final AuthenticationManager authenticationManager;
-
     private final PasswordEncoder passwordEncoder;
 
-
+    private final UserMapper userMapper;
     private final JwtUtils jwtUtils;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UserMapper userMapper, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
         this.jwtUtils = jwtUtils;
     }
 
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(String firstName, String lastName, String email, String password) {
+    public User createUser(String firstName, String lastName, String email, String password) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -71,27 +71,26 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setBalance(BigDecimal.valueOf(0));
         user.setRole(Role.ROLE_USER);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public ResponseEntity<?> registryUser(UserRegistryForm userRegistryForm) {
+    public ResponseEntity<UserResponse> registryUser(UserRegistryForm userRegistryForm) {
         if(existByEmail(userRegistryForm.email())) {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("User with this email is already in use"));
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        createUser(userRegistryForm.firstName(), userRegistryForm.lastName(),
+        User user = createUser(userRegistryForm.firstName(), userRegistryForm.lastName(),
                 userRegistryForm.email(), passwordEncoder.encode(userRegistryForm.password()));
-        return ResponseEntity.ok(new MessageResponse("User is successfully registered"));
+        return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.OK);
     }
 
     @Override
-    public void updateUser(UserUpdateForm userUpdateForm) {
+    public User updateUser(UserUpdateForm userUpdateForm) {
         User user = findUserById(userUpdateForm.userId());
         user.setFirstName(userUpdateForm.firstName());
         user.setLastName(userUpdateForm.lastName());
         user.setEmail(userUpdateForm.email());
-        userRepository.saveAndFlush(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Override

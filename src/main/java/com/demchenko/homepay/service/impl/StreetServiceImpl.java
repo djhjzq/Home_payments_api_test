@@ -22,11 +22,11 @@ public class StreetServiceImpl implements StreetService {
     }
 
     @Override
-    public void createStreet(Long cityId, String streetName) {
+    public Street createStreet(Long cityId, String streetName) {
         Street street = new Street();
         street.setName(streetName);
         street.setCity(cityService.findCityById(cityId));
-        streetRepository.save(street);
+        return streetRepository.save(street);
     }
 
     @Override

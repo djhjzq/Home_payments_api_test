@@ -4,7 +4,7 @@ import com.demchenko.homepay.entity.City;
 
 public interface CityService {
 
-    void createCity(String cityName);
+    City createCity(String cityName);
 
     City findCityById(Long cityId);
 

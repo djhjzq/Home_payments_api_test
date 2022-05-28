@@ -1,16 +1,16 @@
 package com.demchenko.homepay.mapper;
 
-import com.demchenko.homepay.dto.response.UserDto;
+import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.User;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface UserMapper {
 
-    User userDtoToUser(UserDto userDto);
+    User userDtoToUser(UserResponse userResponse);
 
-    UserDto userToUserDto(User user);
+    UserResponse userToUserDto(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromUserDto(UserDto userDto, @MappingTarget User user);
+    void updateUserFromUserDto(UserResponse userResponse, @MappingTarget User user);
 }

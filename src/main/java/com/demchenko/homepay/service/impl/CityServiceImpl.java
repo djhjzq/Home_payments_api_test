@@ -18,10 +18,10 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void createCity(String cityName) {
+    public City createCity(String cityName) {
         City city = new City();
         city.setName(cityName);
-        cityRepository.save(city);
+        return cityRepository.save(city);
     }
 
     @Override

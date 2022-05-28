@@ -8,9 +8,9 @@ import java.util.Set;
 
 public interface InvoiceService {
 
-    void createInvoice(String name, String invoiceType, Long estateId);
+    Invoice createInvoice(String name, String invoiceType, Long estateId);
 
-    void addInvoice(InvoiceRegistryForm invoiceRegistryForm);
+    Invoice addInvoice(InvoiceRegistryForm invoiceRegistryForm);
 
     Invoice findInvoiceById(Long invoiceId);
 

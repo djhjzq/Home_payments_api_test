@@ -10,12 +10,12 @@ import java.util.Set;
 
 public interface EstateService {
 
-    void createEstate(Long userId,
+    Estate createEstate(Long userId,
                       Long cityId,
                       Long streetId, Integer houseNumber,
                       Integer flatNumber);
 
-    void registryEstate(EstateRegistryForm estateRegistryForm);
+    Estate registryEstate(EstateRegistryForm estateRegistryForm);
 
     Estate findEstateById(Long id);
 

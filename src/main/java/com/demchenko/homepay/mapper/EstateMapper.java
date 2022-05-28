@@ -1,6 +1,6 @@
 package com.demchenko.homepay.mapper;
 
-import com.demchenko.homepay.dto.response.EstateDto;
+import com.demchenko.homepay.dto.response.EstateResponse;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.User;
 import org.mapstruct.*;
@@ -14,15 +14,15 @@ public interface EstateMapper {
     @Mapping(source = "cityName", target = "city.name")
     @Mapping(source = "streetId", target = "street.id")
     @Mapping(source = "streetName", target = "street.name")
-    Estate estateDtoToEstate(EstateDto estateDto);
+    Estate estateDtoToEstate(EstateResponse estateResponse);
 
     @InheritInverseConfiguration(name = "estateDtoToEstate")
     @Mapping(target = "userSetIds", expression = "java(userSetToUserSetIds(estate.getUserSets()))")
-    EstateDto estateToEstateDto(Estate estate);
+    EstateResponse estateToEstateDto(Estate estate);
 
     @InheritConfiguration(name = "estateDtoToEstate")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEstateFromEstateDto(EstateDto estateDto, @MappingTarget Estate estate);
+    void updateEstateFromEstateDto(EstateResponse estateResponse, @MappingTarget Estate estate);
 
     default Set<Long> userSetToUserSetIds(Set<User> userSet) {
         return userSet.stream().map(User::getId).collect(Collectors.toSet());

@@ -8,9 +8,9 @@ import java.util.Set;
 
 public interface PaymentService {
 
-    void createPayment(Long invoiceId, Long userId, BigDecimal amount);
+    Payment createPayment(Long invoiceId, Long userId, BigDecimal amount);
 
-    void registryPayment(PaymentRegistryForm paymentRequest);
+    Payment registryPayment(PaymentRegistryForm paymentRequest);
 
     Set<Payment> showAllPaymentsByUser(Long userId);
 

@@ -1,6 +1,6 @@
 package com.demchenko.homepay.mapper;
 
-import com.demchenko.homepay.dto.response.PaymentDto;
+import com.demchenko.homepay.dto.response.PaymentResponse;
 import com.demchenko.homepay.entity.Payment;
 import com.demchenko.homepay.entity.User;
 import org.mapstruct.*;
@@ -16,14 +16,14 @@ public interface PaymentMapper {
     @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "userFirstName", target = "user.firstName")
     @Mapping(source = "userLastName", target = "user.lastName")
-    Payment paymentDtoToPayment(PaymentDto paymentDto);
+    Payment paymentDtoToPayment(PaymentResponse paymentResponse);
 
     @InheritInverseConfiguration(name = "paymentDtoToPayment")
-    PaymentDto paymentToPaymentDto(Payment payment);
+    PaymentResponse paymentToPaymentDto(Payment payment);
 
     @InheritConfiguration(name = "paymentDtoToPayment")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updatePaymentFromPaymentDto(PaymentDto paymentDto, @MappingTarget Payment payment);
+    void updatePaymentFromPaymentDto(PaymentResponse paymentResponse, @MappingTarget Payment payment);
 
     default Set<Long> userSetToUserSetIds(Set<User> userSet) {
         return userSet.stream().map(User::getId).collect(Collectors.toSet());

@@ -5,6 +5,7 @@ import com.demchenko.homepay.dto.request.UserLoginForm;
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
 import com.demchenko.homepay.dto.response.JwtResponse;
+import com.demchenko.homepay.dto.response.UserResponse;
 import com.demchenko.homepay.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,12 +20,12 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    void createUser(String firstName, String lastName,
+    User createUser(String firstName, String lastName,
                     String email, String password);
 
-    ResponseEntity<?> registryUser(UserRegistryForm userRegistryForm);
+    ResponseEntity<UserResponse> registryUser(UserRegistryForm userRegistryForm);
 
-    void updateUser(UserUpdateForm userUpdateForm);
+    User updateUser(UserUpdateForm userUpdateForm);
 
     void deleteUser(Long userId);
 

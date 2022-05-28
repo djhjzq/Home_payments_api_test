@@ -38,7 +38,7 @@ public class EstateServiceImpl implements EstateService {
     }
 
     @Override
-    public void createEstate(Long userId,
+    public Estate createEstate(Long userId,
                              Long cityId,
                              Long streetId, Integer houseNumber,
                              Integer flatNumber) {
@@ -54,12 +54,13 @@ public class EstateServiceImpl implements EstateService {
 
         userService.findUserById(userId).getEstateSet().add(estate);
 
-        estateRepository.save(estate);
+        return estateRepository.save(estate);
+
     }
 
     @Override
-    public void registryEstate(EstateRegistryForm estateRegistryForm) {
-        createEstate(estateRegistryForm.userId(), estateRegistryForm.cityId(),
+    public Estate registryEstate(EstateRegistryForm estateRegistryForm) {
+        return createEstate(estateRegistryForm.userId(), estateRegistryForm.cityId(),
                 estateRegistryForm.streetId(), estateRegistryForm.houseNumber(),
                 estateRegistryForm.flatNumber());
     }

@@ -31,7 +31,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void createPayment(Long userId, Long invoiceId, BigDecimal amount) {
+    public Payment createPayment(Long userId, Long invoiceId, BigDecimal amount) {
         Date date = new Date();
         Payment payment = new Payment();
         User user = userService.findUserById(userId);
@@ -40,12 +40,12 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setInvoice(invoiceService.findInvoiceById(invoiceId));
         payment.setUser(user);
         payment.setAmount(amount);
-        paymentRepository.save(payment);
+        return paymentRepository.save(payment);
     }
 
     @Override
-    public void registryPayment(PaymentRegistryForm paymentRequest) {
-        createPayment(paymentRequest.userId(), paymentRequest.invoiceId(),
+    public Payment registryPayment(PaymentRegistryForm paymentRequest) {
+       return createPayment(paymentRequest.userId(), paymentRequest.invoiceId(),
                 paymentRequest.amount());
     }
 

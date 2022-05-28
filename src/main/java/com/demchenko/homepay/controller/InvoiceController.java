@@ -1,7 +1,7 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.InvoiceRegistryForm;
-import com.demchenko.homepay.dto.response.InvoiceDto;
+import com.demchenko.homepay.dto.response.InvoiceResponse;
 import com.demchenko.homepay.mapper.InvoiceMapper;
 import com.demchenko.homepay.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +32,13 @@ public class InvoiceController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
-        invoiceService.addInvoice(invoiceRegistryForm);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<InvoiceResponse> addInvoice(@Valid InvoiceRegistryForm invoiceRegistryForm) {
+        return new ResponseEntity<>(invoiceMapper.invoiceToInvoiceDto(invoiceService.addInvoice(invoiceRegistryForm)),
+                HttpStatus.OK);
     }
 
     @PostMapping("/all")
-    public ResponseEntity<Set<InvoiceDto>> showInvoices(@Positive Long estateId) {
-
+    public ResponseEntity<Set<InvoiceResponse>> showInvoices(@Positive Long estateId) {
        return new ResponseEntity<>(invoiceService.findAllEstateInvoices(estateId).stream()
                .map(invoiceMapper::invoiceToInvoiceDto).collect(Collectors.toSet()), HttpStatus.OK);
     }

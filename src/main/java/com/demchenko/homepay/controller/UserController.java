@@ -2,6 +2,8 @@ package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.UserRegistryForm;
 import com.demchenko.homepay.dto.request.UserUpdateForm;
+import com.demchenko.homepay.dto.response.UserResponse;
+import com.demchenko.homepay.mapper.UserMapper;
 import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +21,23 @@ import javax.validation.constraints.Positive;
 public class UserController {
     private final UserService userService;
 
+    private final UserMapper userMapper;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> registry(@Valid UserRegistryForm userRegistryForm) {
-         userService.registryUser(userRegistryForm);
-         return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<UserResponse> registry(@Valid UserRegistryForm userRegistryForm) {
+         return userService.registryUser(userRegistryForm);
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity<?> editUser(@Valid UserUpdateForm userUpdateForm) {
-        userService.updateUser(userUpdateForm);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<UserResponse> editUser(@Valid UserUpdateForm userUpdateForm) {
+        return new ResponseEntity<>(userMapper.userToUserDto(userService.updateUser(userUpdateForm)),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

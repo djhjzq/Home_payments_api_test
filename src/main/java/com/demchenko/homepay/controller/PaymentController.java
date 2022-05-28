@@ -1,7 +1,7 @@
 package com.demchenko.homepay.controller;
 
 import com.demchenko.homepay.dto.request.PaymentRegistryForm;
-import com.demchenko.homepay.dto.response.PaymentDto;
+import com.demchenko.homepay.dto.response.PaymentResponse;
 import com.demchenko.homepay.mapper.PaymentMapper;
 import com.demchenko.homepay.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,13 @@ public class PaymentController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> registryPayment(@Valid PaymentRegistryForm paymentRequest) {
-        paymentService.registryPayment(paymentRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<PaymentResponse> registryPayment(@Valid PaymentRegistryForm paymentRequest) {
+        return new ResponseEntity<>(paymentMapper.paymentToPaymentDto(paymentService.registryPayment(paymentRequest)),
+                HttpStatus.OK);
     }
 
     @PostMapping("/all")
-    public ResponseEntity<Set<PaymentDto>> showAllPayments(@Positive Long userId) {
+    public ResponseEntity<Set<PaymentResponse>> showAllPayments(@Positive Long userId) {
         return new ResponseEntity<>(paymentService.showAllPaymentsByUser(userId).stream()
                 .map(paymentMapper:: paymentToPaymentDto).collect(Collectors.toSet()), HttpStatus.OK);
     }

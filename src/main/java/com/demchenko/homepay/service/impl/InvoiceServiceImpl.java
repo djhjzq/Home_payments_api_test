@@ -27,17 +27,17 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void createInvoice(String name, String invoiceType, Long estateId) {
+    public Invoice createInvoice(String name, String invoiceType, Long estateId) {
         Invoice invoice = new Invoice();
         invoice.setName(name);
         invoice.setEstate(estateService.findEstateById(estateId));
         invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
-        invoiceRepository.save(invoice);
+        return invoiceRepository.save(invoice);
     }
 
     @Override
-    public void addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
-        createInvoice(invoiceRegistryForm.name(),
+    public Invoice addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
+        return createInvoice(invoiceRegistryForm.name(),
                 invoiceRegistryForm.invoiceType(),
                 invoiceRegistryForm.estateId());
     }
