@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>homePay</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Hello page</h1>
+<div class="jumbotron text-center bg-dark text-white">
+    <h1>homePay app</h1>
+</div>
+    <form action="/auth/login">
+        <button class="btn btn-warning btn-block btn-lg" type="submit">Login</button>
+    </form>
+    <form action="/auth/registry">
+        <button class="btn btn-warning btn-block btn-lg" type="submit">Registry</button>
+    </form>
 <script th:src="@{/js/script.js}"></script>
 </body>
 </html>

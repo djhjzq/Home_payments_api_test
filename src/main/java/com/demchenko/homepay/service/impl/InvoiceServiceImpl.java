@@ -7,12 +7,14 @@ import com.demchenko.homepay.exception.InvoiceNotFoundException;
 import com.demchenko.homepay.repository.InvoiceRepository;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.InvoiceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 
+@Slf4j
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
@@ -32,6 +34,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoice.setName(name);
         invoice.setEstate(estateService.findEstateById(estateId));
         invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
+        log.info("Save invoice to repository with name: {}, estateId: {}, " +
+                "invoiceType: {}", name, estateId, invoiceType);
         return invoiceRepository.save(invoice);
     }
 
@@ -51,6 +55,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Set<Invoice> findAllEstateInvoices(Long estateId) {
+        log.info("Try to find invoice by estateId: {}", estateId);
         return estateService.findEstateById(estateId).getInvoiceSet();
     }
 
@@ -58,6 +63,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     public void deleteInvoice(Long estateId, Long invoiceId) {
         estateService.findEstateById(estateId).getInvoiceSet()
                 .remove(findInvoiceById(invoiceId));
+        log.info("Try to delete invoice by estateId: {}, invoiceId: {}", estateId,
+                invoiceId);
         invoiceRepository.deleteById(invoiceId);
     }
 }

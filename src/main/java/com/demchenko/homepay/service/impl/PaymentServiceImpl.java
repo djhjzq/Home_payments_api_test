@@ -7,6 +7,7 @@ import com.demchenko.homepay.repository.PaymentRepository;
 import com.demchenko.homepay.service.PaymentService;
 import com.demchenko.homepay.service.UserService;
 import com.demchenko.homepay.service.InvoiceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
@@ -40,6 +42,8 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setInvoice(invoiceService.findInvoiceById(invoiceId));
         payment.setUser(user);
         payment.setAmount(amount);
+        log.info("Save payment to repository with userId: {}, createdOn: {}," +
+                "invoiceId: {}, amount: {}", userId, date, invoiceId, amount);
         return paymentRepository.save(payment);
     }
 

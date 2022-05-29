@@ -14,6 +14,7 @@ import com.demchenko.homepay.security.jwt.JwtUtils;
 import com.demchenko.homepay.security.service.UserDetailsImpl;
 import com.demchenko.homepay.service.UserService;
 import com.demchenko.homepay.specification.UserSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long userId) {
+        log.info("Try to find user with id: {}", userId);
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException
                         ("User by id " + userId + " was not found."));
@@ -56,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
+        log.info("Try to find user with email: {}", email);
         return userRepository.findUserByEmail(email).
                 orElseThrow(()-> new UserNotFoundException
                         ("User by email " + email + " was not found."));
@@ -70,6 +74,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setBalance(BigDecimal.valueOf(0));
         user.setRole(Role.ROLE_USER);
+        log.info("Save user to repository with firstName: {}, lastName: {}," +
+                "email: {}", firstName, lastName, email);
         return userRepository.save(user);
     }
 
@@ -89,16 +95,20 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userUpdateForm.firstName());
         user.setLastName(userUpdateForm.lastName());
         user.setEmail(userUpdateForm.email());
+        log.info("Update user in repository with firstName: {}, lastName{}, " +
+                "email: {}", user.getFirstName(), user.getLastName(), user.getEmail());
         return userRepository.saveAndFlush(user);
     }
 
     @Override
     public Boolean existByEmail(String email) {
+        log.info("Check user by email: {}", email);
         return userRepository.existsByEmail(email);
     }
 
     @Override
     public void deleteUser(Long userId) {
+        log.info("Try to delete user by id: {}", userId);
         userRepository.deleteById(userId);
     }
 
@@ -110,6 +120,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> searchUsersBy(String lastName, String email) {
         UserSpecification userSpecification = new UserSpecification(lastName, email);
+        log.info("Try to find users by lastName: {}, email: {}", lastName, email);
         return userRepository.findAll(userSpecification);
     }
 
@@ -133,6 +144,9 @@ public class UserServiceImpl implements UserService {
         else {
             jwtResponse.setRole(Role.ROLE_ADMIN);
         }
+        log.info("Authenticate user with token: {}, email : {} ", jwtResponse.getToken(),
+                jwtResponse.getEmail());
+
         return jwtResponse;
     }
 }

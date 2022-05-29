@@ -10,6 +10,7 @@ import com.demchenko.homepay.service.StreetService;
 import com.demchenko.homepay.service.UserService;
 import com.demchenko.homepay.service.CityService;
 import com.demchenko.homepay.specification.EstateSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class EstateServiceImpl implements EstateService {
 
@@ -53,7 +55,9 @@ public class EstateServiceImpl implements EstateService {
         } else estate.setEstateType(EstateType.HOUSE);
 
         userService.findUserById(userId).getEstateSet().add(estate);
-
+        log.info("Save estate to repository with userId: {}, cityId: {}, " +
+                "streetId: {}, houseNumber: {}, flatNumber: {}", userId, cityId,
+                streetId, houseNumber, flatNumber);
         return estateRepository.save(estate);
 
     }
@@ -67,6 +71,7 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public Estate findEstateById(Long id) {
+        log.info("Try to find estate by id: {}", id);
         return estateRepository.findById(id).
                 orElseThrow(()-> new EstateNotFoundException
                         ("Estate by " + id + " was not found."));
@@ -74,6 +79,7 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public Set<Estate> findAllEstatesByUserId(Long userId) {
+        log.info("Try to find estates by userId: {}", userId);
         return userService.findUserById(userId).getEstateSet();
     }
 
@@ -86,12 +92,15 @@ public class EstateServiceImpl implements EstateService {
                 .remove(estate);
         streetService.findStreetById(streetId).getEstateSet()
                 .remove(estate);
+        log.info("Try to delete estate by id: {}", estateId);
         estateRepository.deleteById(estateId);
     }
 
     @Override
     public List<Estate> search(Long cityId, Long streetId, Integer houseNumber, Long estateType) {
         EstateSpecification estateSpecification = new EstateSpecification(cityId, streetId, houseNumber, estateType);
+        log.info("Try to find estates by cityId: {}, streetId: {}, houseNumber: {}," +
+                "estateType: {}", cityId, streetId, houseNumber, estateType);
         return estateRepository.findAll(estateSpecification);
     }
 

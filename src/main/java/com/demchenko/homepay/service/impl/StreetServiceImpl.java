@@ -5,9 +5,11 @@ import com.demchenko.homepay.exception.StreetNotFoundException;
 import com.demchenko.homepay.repository.StreetRepository;
 import com.demchenko.homepay.service.StreetService;
 import com.demchenko.homepay.service.CityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class StreetServiceImpl implements StreetService {
 
@@ -26,6 +28,7 @@ public class StreetServiceImpl implements StreetService {
         Street street = new Street();
         street.setName(streetName);
         street.setCity(cityService.findCityById(cityId));
+        log.info("Save street to repository with name: {}, cityId: {}", streetName, cityId);
         return streetRepository.save(street);
     }
 

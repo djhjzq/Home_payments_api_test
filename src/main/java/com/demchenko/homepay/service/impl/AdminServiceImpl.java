@@ -5,6 +5,7 @@ import com.demchenko.homepay.entity.User;
 import com.demchenko.homepay.service.AdminService;
 import com.demchenko.homepay.service.EstateService;
 import com.demchenko.homepay.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -27,6 +29,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Estate> search(Long cityId, Long streetId, Integer houseNumber, Long estateType) {
+        log.info("Try to find estates by cityId: {}, streetId: {}, houseNumber: {}," +
+                "estateType: {}", cityId, streetId, houseNumber, estateType);
        return estateService.search(cityId, streetId, houseNumber, estateType);
     }
 
@@ -42,6 +46,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<User> searchUsers(String lastName, String email) {
+        log.info("Try to find users by lastName: {}, email: {}", lastName, email);
         return userService.searchUsersBy(lastName, email);
     }
 }
