@@ -5,19 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>homePay</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
 </head>
 <body>
-<div class="jumbotron text-center bg-dark text-white">
-    <h1>homePay app</h1>
+<div class="form-modal">
+
+    <div class="form-toggle">
+        <button id="login-toggle" onclick="toggleLogin()">log in</button>
+        <button id="signup-toggle" onclick="toggleSignup()">sign up</button>
+    </div>
+
+    <div id="login-form">
+        <form>
+            <input type="text" placeholder="Enter email"/>
+            <input type="password" placeholder="Enter password"/>
+            <button type="button" class="btn login">login</button>
+            <hr/>
+
+        </form>
+    </div>
+
+    <div id="signup-form">
+        <form>
+            <input type="email" placeholder="Enter your email"/>
+            <input type="text" placeholder="First name">
+            <input type="text" placeholder="Last name">
+            <input type="password" placeholder="Create password"/>
+            <button type="button" class="btn signup">create account</button>
+            <hr/>
+        </form>
+    </div>
+
 </div>
-    <form action="/auth/login">
-        <button class="btn btn-warning btn-block btn-lg" type="submit">Login</button>
-    </form>
-    <form action="/auth/registry">
-        <button class="btn btn-warning btn-block btn-lg" type="submit">Registry</button>
-    </form>
-<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/mainScript.js}"></script>
 </body>
 </html>
