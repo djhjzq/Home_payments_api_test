@@ -16,17 +16,16 @@
     </div>
 
     <div id="login-form">
-        <form>
+        <form id="form-login">
             <input type="text" placeholder="Enter email"/>
             <input type="password" placeholder="Enter password"/>
             <button type="button" class="btn login">login</button>
             <hr/>
-
         </form>
     </div>
 
     <div id="signup-form">
-        <form>
+        <form id="form-registry">
             <input type="email" placeholder="Enter your email"/>
             <input type="text" placeholder="First name">
             <input type="text" placeholder="Last name">
@@ -38,5 +37,6 @@
 
 </div>
 <script th:src="@{/js/mainScript.js}"></script>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 </body>
 </html>
