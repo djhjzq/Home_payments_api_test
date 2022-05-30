@@ -1,25 +1,28 @@
 package com.demchenko.homepay.controller;
 
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+
+import javax.servlet.http.HttpServletResponse;
+
+
 
 @Controller
 @RequestMapping("/api")
 public class ViewController {
 
+
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/user")
-    public String userPage() {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String userPage(HttpServletResponse response) {
+        response.setHeader("Location", "/api/user");
         return "user_page";
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/getUser")
-    public String getUser() {
-        return "redirect:/api/user";
-    }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin")
