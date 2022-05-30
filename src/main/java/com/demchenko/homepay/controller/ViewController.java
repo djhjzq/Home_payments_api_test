@@ -15,6 +15,12 @@ public class ViewController {
         return "user_page";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/getUser")
+    public String getUser() {
+        return "redirect:/api/user";
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin")
     public String adminPage() {
