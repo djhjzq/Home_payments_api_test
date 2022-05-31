@@ -9,5 +9,4 @@ public interface StreetService {
 
     Street findStreetById(Long streetId);
 
-    Street findStreetByCityAndName(String  cityName, String streetName);
 }

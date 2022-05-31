@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface StreetRepository extends JpaRepository<Street, Long> {
 
-    Optional<Street> findStreetByCityAndName(City city, String name);
 }

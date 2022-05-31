@@ -36,9 +36,4 @@ public class CityServiceImpl implements CityService {
                         ("City by id " + cityId + " was not found."));
     }
 
-    @Override
-    public City findCityByName(String cityName)  {
-        log.info("Try to find city with name: {}", cityName);
-        return cityRepository.findCityByName(cityName).orElse(createCity(cityName));
-    }
 }
