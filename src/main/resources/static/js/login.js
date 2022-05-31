@@ -42,10 +42,6 @@ $(document).ready(function (){
 
     })
 
-    $(".logout-button").click(function (){
-        logout();
-    })
-
     function registryUser(firstName, lastName, email, password) {
         $.ajax({
             url: "/api/auth/registry",
@@ -76,15 +72,13 @@ $(document).ready(function (){
                 } else {
                     urlLogin = "/api/admin"
                 }
-                window.location.href=urlLogin;
-
+                window.location.href = urlLogin;
             },
             error: function () {
                 $("#warning-msg").replaceWith("Incorrect password or email.")
             }
         })
     }
-
     function check_cookie_name(name)
     {
         let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -94,10 +88,6 @@ $(document).ready(function (){
         else{
             console.log('--something went wrong---');
         }
-    }
-
-    function logout() {
-        window.location.href="/api/logout";
     }
 });
 
