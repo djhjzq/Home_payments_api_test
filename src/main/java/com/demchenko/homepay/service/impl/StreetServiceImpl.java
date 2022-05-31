@@ -1,5 +1,6 @@
 package com.demchenko.homepay.service.impl;
 
+import com.demchenko.homepay.entity.City;
 import com.demchenko.homepay.entity.Street;
 import com.demchenko.homepay.exception.StreetNotFoundException;
 import com.demchenko.homepay.repository.StreetRepository;
@@ -37,5 +38,13 @@ public class StreetServiceImpl implements StreetService {
         return streetRepository.findById(streetId)
                 .orElseThrow(()-> new StreetNotFoundException
                         ("Street by id " + streetId + " was not found."));
+    }
+
+    @Override
+    public Street findStreetByCityAndName(String cityName, String streetName) {
+        log.info("Try to find street by cityName: {}, streetName: {}", cityName, streetName);
+        City city = cityService.findCityByName(cityName);
+        return streetRepository.findStreetByCityAndName(city, streetName).
+                orElse(createStreet(city.getId(), streetName));
     }
 }

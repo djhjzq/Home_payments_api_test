@@ -2,6 +2,7 @@ package com.demchenko.homepay.entity;
 
 import com.demchenko.homepay.entity.basic.NamedEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "cities")
 public class City extends NamedEntity {
 
@@ -24,4 +26,7 @@ public class City extends NamedEntity {
             orphanRemoval = true)
     private Set<Estate> estateSet;
 
+    public City(String cityName) {
+        super(cityName);
+    }
 }

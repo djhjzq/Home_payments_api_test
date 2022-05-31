@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="user_page">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -27,6 +27,36 @@
                 </nav>
                 <div class="container-fluid">
                     <h1 class="mt-4" id="welcome-text">Hello, </h1>
+                    <h2>Your objects:</h2>
+                </div>
+                <div class="container-fluid" id="objectsTable">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">City</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">Home_Number</th>
+                            <th scope="col">Flat_Number</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-objects">
+
+                        </tbody>
+                    </table>
+                    <div id="addObject-form" style="display: none">
+                        <form id="form-Obj">
+                            <input type="text" name="cityName" placeholder="City_name"/>
+                            <input type="text" name="streetName" placeholder="Street_name"/>
+                            <input type="text" name="houseNumber" placeholder="House_number"/>
+                            <input type="text" name="flatNumber" placeholder="Flat_Number"/>
+                            <button type="submit" class="btn-primary">Submit</button>
+                            <p id="warning-msg"></p>
+                            <hr/>
+                        </form>
+                    </div>
+                </div>
+                <div class="container text-center">
+                <button type="button" id="add-obj" class="btn-primary">Add new</button>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Slf4j
 @Service
 public class CityServiceImpl implements CityService {
@@ -21,7 +22,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City createCity(String cityName) {
-        City city = new City();
+        City city = new City(cityName);
         city.setName(cityName);
         log.info("Save city to repository with name: {}", cityName);
         return cityRepository.save(city);
@@ -33,5 +34,11 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findById(cityId)
                 .orElseThrow(() -> new CityNotFoundException
                         ("City by id " + cityId + " was not found."));
+    }
+
+    @Override
+    public City findCityByName(String cityName)  {
+        log.info("Try to find city with name: {}", cityName);
+        return cityRepository.findCityByName(cityName).orElse(createCity(cityName));
     }
 }

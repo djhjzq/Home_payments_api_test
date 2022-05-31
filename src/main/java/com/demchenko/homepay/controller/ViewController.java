@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -41,7 +42,8 @@ public class ViewController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/api/user")
-    public String userPage() {
+    public String userPage(Model model) {
+        model.addAttribute("m", "a");
         log.info("return user_page");
         return "user_page";
     }

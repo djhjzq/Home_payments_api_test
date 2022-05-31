@@ -2,6 +2,10 @@ $(document).ready(function (){
 
     getUser();
 
+    generateObjectsTable();
+
+    let isOpen = false;
+
     function getUser() {
         let userId = check_cookie_name("Id");
         $.ajax({
@@ -19,6 +23,20 @@ $(document).ready(function (){
         window.location.href="/api/logout"
     })
 
+    $("#add-obj").click(function (){
+        if (isOpen === false) {
+            $("#addObject-form").css("display", "block")
+            isOpen = true;
+            $(this).html("Hide")
+        }
+        else {
+            $("#addObject-form").css("display", "none")
+            isOpen = false;
+            $(this).html("Add new");
+        }
+    })
+
+
     function check_cookie_name(name)
     {
         let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -28,5 +46,24 @@ $(document).ready(function (){
         else{
             console.log('--something went wrong---');
         }
+    }
+
+    function generateObjectsTable() {
+        $.ajax({
+            url: "/api/user/objects/all",
+            type: "POST",
+            data:{"userId":  check_cookie_name("Id")},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+             let l = data.length;
+             for (let i = 0; i < l; i++) {
+                 $("#table-objects").append("<tr><td>"+data[i]["cityName"]+
+                 "</td><td>"+data[i]["streetName"]+"</td><td>"+data[i]["houseNumber"]+"</td>" +
+                     "<td>"+data[i]["flatNumber"]+"</td></tr>");
+             }
+            }
+
+        })
     }
 });
