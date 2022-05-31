@@ -18,7 +18,6 @@ public class ViewController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(HttpServletResponse response) {
-        response.setHeader("Location", "/api/user");
         return "user_page";
     }
 
