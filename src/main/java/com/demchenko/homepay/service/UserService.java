@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -36,5 +37,7 @@ public interface UserService {
     JwtResponse authenticateUser(UserLoginForm userLoginForm);
 
     Boolean existByEmail(String email);
+
+    void refreshCookie(HttpServletResponse response);
 
 }

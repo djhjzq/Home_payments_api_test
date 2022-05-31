@@ -4,6 +4,7 @@ import com.demchenko.homepay.security.jwt.AuthEntryPointJwt;
 import com.demchenko.homepay.security.jwt.AuthTokenFilter;
 import com.demchenko.homepay.security.jwt.JwtUtils;
 import com.demchenko.homepay.security.service.UserDetailsServiceImpl;
+import com.demchenko.homepay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,16 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtUtils jwtUtils;
 
+    private final UserService userService;
+
     @Autowired
-    public WebSecurityConfig(@Lazy UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils) {
+    public WebSecurityConfig(@Lazy UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils, @Lazy UserService userService) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
         this.jwtUtils = jwtUtils;
+        this.userService = userService;
     }
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter(jwtUtils, userDetailsService);
+        return new AuthTokenFilter(jwtUtils, userDetailsService, userService);
     }
 
     @Bean

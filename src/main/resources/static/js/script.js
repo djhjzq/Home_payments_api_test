@@ -63,9 +63,11 @@ $(document).ready(function (){
             type:"POST",
             async:false,
             data: {email, password},
-            success: function (data) {
+            success: function () {
                 let urlLogin;
-                if (data["role"] === "ROLE_USER") {
+                let role = check_cookie_name("Role");
+                console.log(role);
+                if (role === "ROLE_USER") {
                     urlLogin = "/api/user"
                 } else {
                     urlLogin = "/api/admin"
@@ -78,5 +80,15 @@ $(document).ready(function (){
         })
     }
 
+    function check_cookie_name(name)
+    {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) {
+            return match[2];
+        }
+        else{
+            console.log('--something went wrong---');
+        }
+    }
 });
 

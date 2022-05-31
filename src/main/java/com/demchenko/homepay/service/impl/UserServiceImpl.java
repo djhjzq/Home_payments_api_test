@@ -27,6 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -77,6 +79,22 @@ public class UserServiceImpl implements UserService {
         log.info("Save user to repository with firstName: {}, lastName: {}," +
                 "email: {}", firstName, lastName, email);
         return userRepository.save(user);
+    }
+
+    @Override
+    public void refreshCookie(HttpServletResponse response) {
+        Cookie cookieAuth = new Cookie("Authorization", "");
+        Cookie cookieRole = new Cookie("Role", "");
+        Cookie cookieId = new Cookie("Id", "");
+        cookieAuth.setPath("/");
+        cookieRole.setPath("/");
+        cookieId.setPath("/");
+        cookieAuth.setMaxAge(0);
+        cookieRole.setMaxAge(0);
+        cookieId.setMaxAge(0);
+        response.addCookie(cookieAuth);
+        response.addCookie(cookieRole);
+        response.addCookie(cookieId);
     }
 
     @Override

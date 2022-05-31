@@ -1,6 +1,8 @@
 package com.demchenko.homepay.controller;
 
 
+import com.demchenko.homepay.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class ViewController {
+
+    private final UserService userService;
+
+    @Autowired
+    public ViewController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping()
     public String homePage(@CookieValue(value = "Authorization", defaultValue = "") String cookieAuth,
@@ -43,14 +52,7 @@ public class ViewController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/api/logout")
     public String logoutPage(HttpServletResponse response) {
-        Cookie cookieAuth = new Cookie("Authorization", "");
-        Cookie cookieRole = new Cookie("Role", "");
-        cookieAuth.setPath("/");
-        cookieRole.setPath("/");
-        cookieAuth.setMaxAge(0);
-        cookieRole.setMaxAge(0);
-        response.addCookie(cookieAuth);
-        response.addCookie(cookieRole);
+        userService.refreshCookie(response);
         return "redirect:/";
     }
 

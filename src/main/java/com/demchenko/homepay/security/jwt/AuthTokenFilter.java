@@ -1,8 +1,10 @@
 package com.demchenko.homepay.security.jwt;
 
 import com.demchenko.homepay.security.service.UserDetailsServiceImpl;
+import com.demchenko.homepay.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,10 +25,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private final UserDetailsServiceImpl userDetailsService;
 
+    private final UserService userService;
+
     @Autowired
-    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
+    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService, UserService userService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @Override
@@ -42,14 +47,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                Cookie cookieAuth = new Cookie("Authorization", "");
-                Cookie cookieRole = new Cookie("Role", "");
-                cookieAuth.setMaxAge(0);
-                cookieRole.setMaxAge(0);
-                cookieAuth.setPath("/");
-                cookieRole.setPath("/");
-                response.addCookie(cookieAuth);
-                response.addCookie(cookieRole);
+                userService.refreshCookie(response);
             }
         } catch (Exception e) {
             log.error("Cannot set user authentication: { }", e);

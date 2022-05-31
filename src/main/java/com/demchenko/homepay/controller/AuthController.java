@@ -31,10 +31,13 @@ public class AuthController {
         JwtResponse jwtResponse = userService.authenticateUser(userLoginForm);
         Cookie cookieAuth = new Cookie("Authorization", "Bearer"+jwtResponse.getToken());
         Cookie cookieRole = new Cookie("Role", jwtResponse.getRole().toString());
+        Cookie cookieId = new Cookie("Id", jwtResponse.getId().toString());
         cookieAuth.setPath("/");
         cookieRole.setPath("/");
+        cookieId.setPath("/");
         response.addCookie(cookieAuth);
         response.addCookie(cookieRole);
+        response.addCookie(cookieId);
         return ResponseEntity.ok().body(jwtResponse);
 
     }
