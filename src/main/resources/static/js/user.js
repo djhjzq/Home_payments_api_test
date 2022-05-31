@@ -37,6 +37,20 @@ $(document).ready(function (){
     })
 
 
+    $("#form-Obj").submit(function (event) {
+        event.preventDefault();
+
+        let $form = $(this),
+            cityName = $form.find("input[name='firstName']").val(),
+            StreetName = $form.find("input[name='lastName']").val(),
+            houseNumber = $form.find("input[name='email']").val(),
+            flatNumber = $form.find("input[name='email']").val();
+
+
+
+    })
+
+
     function check_cookie_name(name)
     {
         let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
