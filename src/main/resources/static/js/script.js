@@ -42,6 +42,10 @@ $(document).ready(function (){
 
     })
 
+    $(".logout-button").click(function (){
+        logout();
+    })
+
     function registryUser(firstName, lastName, email, password) {
         $.ajax({
             url: "/api/auth/registry",
@@ -89,6 +93,10 @@ $(document).ready(function (){
         else{
             console.log('--something went wrong---');
         }
+    }
+
+    function logout() {
+        window.location.href="/api/logout";
     }
 });
 
