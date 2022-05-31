@@ -18,8 +18,6 @@ function toggleLogin(){
 
 $(document).ready(function (){
 
-    let isAuthenticated = false;
-
     $("#form-login").submit(function (event){
         event.preventDefault();
 
@@ -31,16 +29,6 @@ $(document).ready(function (){
 
     })
 
-    function showUser() {
-        if(isAuthenticated) {
-            $.ajax({
-                url:""
-            })
-        }
-    }
-
-
-
     function loginPost(email, password) {
         $.ajax({
             url:"/api/auth/login",
@@ -49,25 +37,12 @@ $(document).ready(function (){
             data: {email, password},
             success: function (data) {
                 let urlLogin;
-                if(data["role"] === "ROLE_USER") {
+                if (data["role"] === "ROLE_USER") {
                     urlLogin = "/api/user"
                 } else {
                     urlLogin = "/api/admin"
                 }
-                window.localStorage.setItem("id", data["id"]);
-                window.localStorage.setItem("token", data["token"]);
-                $.ajax({
-                    url:urlLogin,
-                    type:"GET",
-                    async: false,
-                    headers: {
-                        "Authorization": "Bearer " + data["token"],
-                    },
-                    success: function (data) {
-                        $("body").replaceWith(data);
-                        isAuthenticated = true;
-                    }
-                })
+                window.location.href=urlLogin;
             },
             error: function () {
                 $("#warning-msg").replaceWith("Incorrect password or email.")
