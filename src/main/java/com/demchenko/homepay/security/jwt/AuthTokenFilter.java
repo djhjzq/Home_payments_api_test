@@ -12,6 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,6 +42,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                Cookie cookieAuth = new Cookie("Authentication", "");
+                Cookie cookieRole = new Cookie("Role", "");
+                cookieAuth.setMaxAge(0);
+                cookieRole.setMaxAge(0);
+                response.addCookie(cookieAuth);
+                response.addCookie(cookieRole);
             }
         } catch (Exception e) {
             log.error("Cannot set user authentication: { }", e);
@@ -50,9 +58,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 
     private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("Authorization")) {
+                return cookie.getValue().substring(6);
+            }
         }
         return null;
     }

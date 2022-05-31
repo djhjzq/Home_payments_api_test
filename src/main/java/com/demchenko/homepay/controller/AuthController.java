@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid UserLoginForm userLoginForm, HttpServletResponse response) {
+    public ResponseEntity<JwtResponse> authenticateUser(@Valid UserLoginForm userLoginForm, HttpServletResponse response) {
         JwtResponse jwtResponse = userService.authenticateUser(userLoginForm);
         Cookie cookieAuth = new Cookie("Authorization", "Bearer"+jwtResponse.getToken());
         Cookie cookieRole = new Cookie("Role", jwtResponse.getRole().toString());
@@ -35,7 +35,7 @@ public class AuthController {
         cookieRole.setPath("/");
         response.addCookie(cookieAuth);
         response.addCookie(cookieRole);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(jwtResponse);
 
     }
 
