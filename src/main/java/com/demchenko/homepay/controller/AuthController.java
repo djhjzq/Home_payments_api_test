@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -27,19 +26,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> authenticateUser(@Valid UserLoginForm userLoginForm, HttpServletResponse response) {
+    public ResponseEntity<?> authenticateUser(@Valid UserLoginForm userLoginForm, HttpServletResponse response) {
         JwtResponse jwtResponse = userService.authenticateUser(userLoginForm);
-        Cookie cookieAuth = new Cookie("Authorization", "Bearer"+jwtResponse.getToken());
-        Cookie cookieRole = new Cookie("Role", jwtResponse.getRole().toString());
-        Cookie cookieId = new Cookie("Id", jwtResponse.getId().toString());
-        cookieAuth.setPath("/");
-        cookieRole.setPath("/");
-        cookieId.setPath("/");
-        response.addCookie(cookieAuth);
-        response.addCookie(cookieRole);
-        response.addCookie(cookieId);
-        return ResponseEntity.ok().body(jwtResponse);
-
+        userService.addCookies(jwtResponse, response);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/registry")

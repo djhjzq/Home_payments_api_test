@@ -77,6 +77,7 @@ $(document).ready(function (){
                     urlLogin = "/api/admin"
                 }
                 window.location.href=urlLogin;
+
             },
             error: function () {
                 $("#warning-msg").replaceWith("Incorrect password or email.")

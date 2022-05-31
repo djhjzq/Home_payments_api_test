@@ -82,22 +82,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void refreshCookie(HttpServletResponse response) {
-        Cookie cookieAuth = new Cookie("Authorization", "");
-        Cookie cookieRole = new Cookie("Role", "");
-        Cookie cookieId = new Cookie("Id", "");
-        cookieAuth.setPath("/");
-        cookieRole.setPath("/");
-        cookieId.setPath("/");
-        cookieAuth.setMaxAge(0);
-        cookieRole.setMaxAge(0);
-        cookieId.setMaxAge(0);
-        response.addCookie(cookieAuth);
-        response.addCookie(cookieRole);
-        response.addCookie(cookieId);
-    }
-
-    @Override
     public ResponseEntity<UserResponse> registryUser(UserRegistryForm userRegistryForm) {
         if(existByEmail(userRegistryForm.email())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -167,5 +151,40 @@ public class UserServiceImpl implements UserService {
                 jwtResponse.getEmail());
 
         return jwtResponse;
+    }
+
+    @Override
+    public void refreshCookie(HttpServletResponse response) {
+        Cookie cookieAuth = new Cookie("Authorization", "");
+        Cookie cookieRole = new Cookie("Role", "");
+        Cookie cookieId = new Cookie("Id", "");
+        cookieAuth.setPath("/");
+        cookieRole.setPath("/");
+        cookieId.setPath("/");
+        cookieAuth.setMaxAge(0);
+        cookieRole.setMaxAge(0);
+        cookieId.setMaxAge(0);
+        response.addCookie(cookieAuth);
+        log.info("Adding Authorization cookie with value: {}", cookieAuth);
+        response.addCookie(cookieRole);
+        log.info("Adding Role cookie with value: {}", cookieRole);
+        response.addCookie(cookieId);
+        log.info("Adding Id cookie with value: {}", cookieId);
+    }
+
+    @Override
+    public void addCookies(JwtResponse jwtResponse, HttpServletResponse response) {
+        Cookie cookieAuth = new Cookie("Authorization", "Bearer"+jwtResponse.getToken());
+        Cookie cookieRole = new Cookie("Role", jwtResponse.getRole().toString());
+        Cookie cookieId = new Cookie("Id", jwtResponse.getId().toString());
+        cookieAuth.setPath("/");
+        cookieRole.setPath("/");
+        cookieId.setPath("/");
+        response.addCookie(cookieAuth);
+        log.info("Adding Authorization cookie with value: {}", cookieAuth.getValue());
+        response.addCookie(cookieRole);
+        log.info("Adding Role cookie with value: {}", cookieRole.getValue());
+        response.addCookie(cookieId);
+        log.info("Adding Id cookie with value: {}", cookieId);
     }
 }

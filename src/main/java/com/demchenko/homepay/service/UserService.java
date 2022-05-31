@@ -40,4 +40,6 @@ public interface UserService {
 
     void refreshCookie(HttpServletResponse response);
 
+    void addCookies(JwtResponse jwtResponse, HttpServletResponse response);
+
 }
