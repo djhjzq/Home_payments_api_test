@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -37,6 +38,20 @@ public class ViewController {
     @GetMapping("/api/admin")
     public String adminPage() {
         return "admin_page";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/api/logout")
+    public String logoutPage(HttpServletResponse response) {
+        Cookie cookieAuth = new Cookie("Authorization", "");
+        Cookie cookieRole = new Cookie("Role", "");
+        cookieAuth.setPath("/");
+        cookieRole.setPath("/");
+        cookieAuth.setMaxAge(0);
+        cookieRole.setMaxAge(0);
+        response.addCookie(cookieAuth);
+        response.addCookie(cookieRole);
+        return "redirect:/";
     }
 
 }

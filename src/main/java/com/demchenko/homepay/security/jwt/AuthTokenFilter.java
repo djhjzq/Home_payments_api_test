@@ -43,10 +43,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                Cookie cookieAuth = new Cookie("Authentication", "");
+                Cookie cookieAuth = new Cookie("Authorization", "");
                 Cookie cookieRole = new Cookie("Role", "");
                 cookieAuth.setMaxAge(0);
                 cookieRole.setMaxAge(0);
+                cookieAuth.setPath("/");
+                cookieRole.setPath("/");
                 response.addCookie(cookieAuth);
                 response.addCookie(cookieRole);
             }
