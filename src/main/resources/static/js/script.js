@@ -22,12 +22,40 @@ $(document).ready(function (){
         event.preventDefault();
 
         let $form = $(this),
-            email = $form.find("input[name='email'").val(),
-            password = $form.find("input[name='password'").val();
+            email = $form.find("input[name='email']").val(),
+            password = $form.find("input[name='password']").val();
 
         loginPost(email, password);
 
     })
+
+    $("#form-registry").submit(function (event){
+        event.preventDefault();
+
+        let $form = $(this),
+            firstName = $form.find("input[name='firstName']").val(),
+            lastName = $form.find("input[name='lastName']").val(),
+            email = $form.find("input[name='email']").val(),
+            password = $form.find("input[name='email']").val();
+
+        registryUser(firstName, lastName, email, password);
+
+    })
+
+    function registryUser(firstName, lastName, email, password) {
+        $.ajax({
+            url: "/api/auth/registry",
+            type: "POST",
+            async: false,
+            data: {firstName, lastName, email, password},
+            success: function () {
+                loginPost(email, password);
+            },
+            error: function () {
+                $("#warning-msg-r").replaceWith("Something goes wrong...")
+            }
+        })
+    }
 
     function loginPost(email, password) {
         $.ajax({
