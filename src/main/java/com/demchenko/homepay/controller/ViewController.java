@@ -2,17 +2,18 @@ package com.demchenko.homepay.controller;
 
 
 import com.demchenko.homepay.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 
 
+@Slf4j
 @Controller
 public class ViewController {
 
@@ -28,8 +29,10 @@ public class ViewController {
                            @CookieValue(value = "Role", defaultValue = "") String cookieRole) {
         if (!cookieAuth.equals("") && !cookieRole.equals("")) {
             if (cookieRole.equals("ROLE_USER")) {
+                log.info("redirect:/api/user");
                 return "redirect:/api/user";
             }
+            log.info("redirect:/api/admin");
             return "redirect:/api/admin";
         }
         return "index";
@@ -39,6 +42,7 @@ public class ViewController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/api/user")
     public String userPage() {
+        log.info("return user_page");
         return "user_page";
     }
 
@@ -46,6 +50,7 @@ public class ViewController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/api/admin")
     public String adminPage() {
+        log.info("return admin_page");
         return "admin_page";
     }
 
@@ -53,6 +58,7 @@ public class ViewController {
     @GetMapping("/api/logout")
     public String logoutPage(HttpServletResponse response) {
         userService.refreshCookie(response);
+        log.info("Cookie is deleted. Redirect:/");
         return "redirect:/";
     }
 

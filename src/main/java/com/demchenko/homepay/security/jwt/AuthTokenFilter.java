@@ -47,6 +47,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
+                log.info("Token is not valid");
                 userService.refreshCookie(response);
             }
         } catch (Exception e) {

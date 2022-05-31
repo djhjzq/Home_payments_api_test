@@ -106,6 +106,7 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public Page<Estate> findAllEstates(Pageable pageable) {
+        log.info("Get all objects by page: {}", pageable.getPageNumber());
         return estateRepository.findAll(pageable);
     }
 }

@@ -31,6 +31,8 @@ public class JwtUtils {
         Map<String, Object> claims  = new HashMap<>();
         claims.put("email", userPrincipal.getEmail());
         claims.put("role", userPrincipal.getAuthorities().stream().findFirst().get());
+        log.info("Generating token by email: {}, role: {}", userPrincipal.getEmail(),
+                userPrincipal.getAuthorities().stream().findFirst());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userPrincipal.getEmail())
@@ -41,6 +43,7 @@ public class JwtUtils {
     }
 
     public String getUserNameFromJwtToken(String token) {
+        log.info("Get username from token: {}", token);
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 

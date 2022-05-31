@@ -132,6 +132,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findAllUsers(Pageable pageable) {
+        log.info("Find all users on page: {}", pageable.getPageNumber());
         return userRepository.findAll(pageable);
     }
 
