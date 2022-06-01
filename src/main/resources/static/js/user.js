@@ -56,16 +56,21 @@ $(document).ready(function (){
                 addObj(data);
             }
         })
+    })
 
-
+    $(".del-but").click(function (){
+        $(this).parent().parent().remove();
+        return false;
     })
 
     function addObj(data) {
         $("#table-objects").append("<tr><td>"+data["cityName"]+
             "</td><td>"+data["streetName"]+"</td><td>"+data["houseNumber"]+"</td>" +
-            "<td>"+data["flatNumber"]+"</td><td><button type='button' class='btn btn-danger btn-sm'>Delete</button> </td></tr>"+
+            "<td>"+data["flatNumber"]+"</td><td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button> </td></tr>"+
             "<td><button type='button' class='btn-primary '>Pay</button> </td></tr>");
     }
+    
+
 
 
     function check_cookie_name(name)
@@ -92,7 +97,7 @@ $(document).ready(function (){
                  $("#table-objects").append("<tr><td>"+data[i]["cityName"]+
                  "</td><td>"+data[i]["streetName"]+"</td><td>"+data[i]["houseNumber"]+"</td>" +
                      "<td>"+data[i]["flatNumber"]+"</td>" +
-                     "<td><button type='button' class='btn btn-danger btn-sm'>Delete</button></td>" +
+                     "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
                      "<td><button type='button' class='btn-primary'>Pay</button> </td></tr>");
              }
             }
