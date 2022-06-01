@@ -38,6 +38,10 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City findCityByName(String cityName) {
-        return cityRepository.findCityByName(cityName).orElse(createCity(cityName));
+        City city = cityRepository.findCityByName(cityName);
+        if (city != null) {
+            return city;
+        }
+         return createCity(cityName);
     }
 }

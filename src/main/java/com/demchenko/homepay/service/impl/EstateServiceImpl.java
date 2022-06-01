@@ -55,7 +55,7 @@ public class EstateServiceImpl implements EstateService {
         if(flatNumber != 0) {
             estate.setEstateType(EstateType.FLAT);
         } else estate.setEstateType(EstateType.HOUSE);
-
+        estate.getUserSets().add(userService.findUserById(userId));
         userService.findUserById(userId).getEstateSet().add(estate);
         log.info("Save estate to repository with userId: {}, cityId: {}, " +
                 "streetId: {}, houseNumber: {}, flatNumber: {}", userId, cityId,
