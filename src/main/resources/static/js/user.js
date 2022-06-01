@@ -4,7 +4,9 @@ $(document).ready(function (){
 
     generateObjectsTable();
 
-    let isOpen = false;
+    let isAddObj = false;
+
+    let isPayMenu = false;
 
 
 
@@ -15,14 +17,14 @@ $(document).ready(function (){
 
 
     $("#add-obj").click(function (){
-        if (isOpen === false) {
+        if (isAddObj === false) {
             $("#addObject-form").css("display", "block")
-            isOpen = true;
+            isAddObj = true;
             $(this).html("Hide")
         }
         else {
             $("#addObject-form").css("display", "none")
-            isOpen = false;
+            isAddObj = false;
             $(this).html("Add new");
         }
     })
@@ -63,6 +65,34 @@ $(document).ready(function (){
         })
     })
 
+    $("body").on("click", ".pay-but", function (){
+        let estateId = $(this).parent().parent().attr("id");
+        isPayMenu = true;
+        isOnPayMenu();
+        $.ajax({
+            url:"/api/user/objects/get",
+            type:"POST",
+            data:{"estateId" : estateId},
+            success:function (data) {
+                $("#t2").replaceWith("You choose the object: "+data["streetName"]+" "+data["houseNumber"]+" "
+                +data["flatNumber"]);
+            }
+        })
+    })
+
+
+
+
+
+    function isOnPayMenu() {
+        if(isPayMenu === false) {
+            $("#objectsTable, #add-obj").css("display", "block");
+        }
+        else {
+            $("#objectsTable, #add-obj").css("display", "none");
+        }
+    }
+
     function getUser() {
         let userId = check_cookie_name("Id");
         $.ajax({
@@ -80,7 +110,7 @@ $(document).ready(function (){
             "</td><td>" + data["streetName"] + "</td><td>" + data["houseNumber"] + "</td>" +
             "<td>" + data["flatNumber"] + "</td>" +
             "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
-            "<td><button type='button' class='btn-primary'>Pay</button> </td></tr>")
+            "<td><button type='button' class='btn-primary pay-but'>Pay</button> </td></tr>")
     }
 
     function check_cookie_name(name)
@@ -109,7 +139,7 @@ $(document).ready(function (){
                  "</td><td>"+data[i]["streetName"]+"</td><td>"+data[i]["houseNumber"]+"</td>" +
                      "<td>"+data[i]["flatNumber"]+"</td>" +
                      "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
-                     "<td><button type='button' class='btn-primary'>Pay</button> </td></tr>");
+                     "<td><button type='button' class='btn-primary pay-but'>Pay</button> </td></tr>");
              }
             }
 

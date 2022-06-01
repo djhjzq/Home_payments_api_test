@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("api/user/objects")
+@RequestMapping("/api/user/objects")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class EstateController {
     private final EstateService estateService;
@@ -73,5 +73,12 @@ public class EstateController {
         estateService.deleteEstate(userId, estateId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/get")
+    public ResponseEntity<EstateResponse> findObjectById(@Positive Long estateId) {
+        return new ResponseEntity<>(estateMapper.estateToEstateDto(estateService.findEstateById(estateId)),
+                HttpStatus.OK);
+    }
+
 
 }
