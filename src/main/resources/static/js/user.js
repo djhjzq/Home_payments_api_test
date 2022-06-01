@@ -63,7 +63,8 @@ $(document).ready(function (){
     function addObj(data) {
         $("#table-objects").append("<tr><td>"+data["cityName"]+
             "</td><td>"+data["streetName"]+"</td><td>"+data["houseNumber"]+"</td>" +
-            "<td>"+data["flatNumber"]+"</td></tr>");
+            "<td>"+data["flatNumber"]+"</td><td><button type='button' class='btn btn-danger btn-sm'>Delete</button> </td></tr>"+
+            "<td><button type='button' class='btn-primary '>Pay</button> </td></tr>");
     }
 
 
@@ -90,7 +91,9 @@ $(document).ready(function (){
              for (let i = 0; i < l; i++) {
                  $("#table-objects").append("<tr><td>"+data[i]["cityName"]+
                  "</td><td>"+data[i]["streetName"]+"</td><td>"+data[i]["houseNumber"]+"</td>" +
-                     "<td>"+data[i]["flatNumber"]+"</td></tr>");
+                     "<td>"+data[i]["flatNumber"]+"</td>" +
+                     "<td><button type='button' class='btn btn-danger btn-sm'>Delete</button></td>" +
+                     "<td><button type='button' class='btn-primary'>Pay</button> </td></tr>");
              }
             }
 
