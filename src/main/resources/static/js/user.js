@@ -52,13 +52,19 @@ $(document).ready(function (){
             type:"POST",
             data: {"userId": check_cookie_name("Id"),
             cityName, streetName, houseNumber, flatNumber},
-            success: function () {
-                generateObjectsTable();
+            success: function (data) {
+                addObj(data);
             }
         })
 
 
     })
+
+    function addObj(data) {
+        $("#table-objects").append("<tr><td>"+data["cityName"]+
+            "</td><td>"+data["streetName"]+"</td><td>"+data["houseNumber"]+"</td>" +
+            "<td>"+data["flatNumber"]+"</td></tr>");
+    }
 
 
     function check_cookie_name(name)
