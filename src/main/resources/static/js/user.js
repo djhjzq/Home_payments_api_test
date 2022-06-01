@@ -15,6 +15,29 @@ $(document).ready(function () {
         window.location.href = "/api/logout"
     })
 
+    $("body").on("click", "#see-payments", function (){
+        $("#firstPage").css("display", "none");
+        $("#payment-table").css("display", "block");
+        $("#t2").replaceWith("Your payments: ");
+        $("#add-obj").css("display", "none");
+            $.ajax({
+                url: "/api/user/payments/all",
+                type: "POST",
+                data: {"userId": check_cookie_name("Id")},
+                success: function (data) {
+                    console.log(data);
+                    if($("#table-payments").attr("class")!== "second") {
+                    for (let i = 0; i < data.length; i++) {
+                        $("#table-payments").append("<tr id='" + data[i]["id"] + "'><td>" + data[i]["userFirstName"]
+                            + " " + data[i]["userLastName"] +
+                            "</td><td>" + data[i]["amount"] + "</td><td>" + data[i]["invoiceInvoiceType"] + "</td><td>" + data[i]["createdOn"] + "</td>");
+                        $("#table-payments").addClass("second")
+                    }
+                    }
+                }
+            })
+    })
+
 
     $("#add-obj").click(function () {
         if (isAddObj === false) {

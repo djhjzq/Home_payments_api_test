@@ -13,10 +13,10 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">homePay</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Objects</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Payments</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Chat</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">Objects</a>
+                    <button class="list-group-item list-group-item-action list-group-item-light p-3" id="see-payments">Payments</button>
+                    <button class="list-group-item list-group-item-action list-group-item-light p-3" id="see-profile">Profile</button>
+                    <button class="list-group-item list-group-item-action list-group-item-light p-3" id="see-chat">Chat</button>
                 </div>
             </div>
             <div id="page-content-wrapper">
@@ -30,6 +30,23 @@
                     <h1 id="t2">Your objects:</h1>
                     <h3 id="t3" style="display: none"></h3>
                 </div>
+                <div>
+                    <div id="payment-table" style="display: none">
+                        <table class="table" >
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Invoice_type</th>
+                                <th scope="col">Created_on</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-payments">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="firstPage">
                 <div>
                     <div id="payment-form" style="display: none">
                     <form id="form-payment" >
@@ -98,6 +115,7 @@
                             <hr/>
                         </form>
                     </div>
+                </div>
                 </div>
                 <div class="container text-center">
                 <button type="button" id="add-obj" class="btn-primary">Add new</button>
