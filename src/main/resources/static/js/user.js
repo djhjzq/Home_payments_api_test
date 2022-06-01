@@ -63,6 +63,24 @@ $(document).ready(function () {
         })
     })
 
+    $("#form-payment").submit(function (event) {
+        event.preventDefault();
+        let $form = $(this),
+            amount = $form.find("input[name='amount']").val();
+
+        $.ajax({
+            url:"/api/user/payments/new",
+            type:"POST",
+            data:{amount, "userId": check_cookie_name("Id"),
+                "invoiceId": window.localStorage.getItem("invoiceId")
+            },
+            success: function () {
+                window.location.href = "/";
+            }
+        })
+
+    })
+
     $("#form-Inv").submit(function (event) {
         event.preventDefault();
 
@@ -93,6 +111,14 @@ $(document).ready(function () {
             "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
             "<td><button type='button' class='btn-primary pay-but'>Pay</button> </td></tr>")
     }
+
+    $("body").on("click", ".pay-butI", function (){
+        $("#invoice-table").css("display", "none");
+        $("#add-invo").css("display", "none");
+        $("#payment-form").css("display", "block");
+        let invoiceId = $(this).parent().parent().attr("id");
+        window.localStorage.setItem("invoiceId", invoiceId)
+    })
 
 
 
