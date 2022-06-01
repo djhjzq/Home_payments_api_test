@@ -69,9 +69,8 @@ public class EstateController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteEstate(@Positive Long userId, @Positive Long cityId,
-                             @Positive Long streetId, @Positive Long estateId) {
-        estateService.deleteEstate(userId, cityId, streetId, estateId);
+    public ResponseEntity<?> deleteEstate(@Positive Long userId, @Positive Long estateId) {
+        estateService.deleteEstate(userId, estateId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

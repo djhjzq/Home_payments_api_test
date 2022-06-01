@@ -6,17 +6,7 @@ $(document).ready(function (){
 
     let isOpen = false;
 
-    function getUser() {
-        let userId = check_cookie_name("Id");
-        $.ajax({
-            url:"/api/user/"+userId,
-            type: "GET",
-            success: function (data) {
-                $("#welcome-text").append(data["firstName"]+" "+
-                data["lastName"]+".");
-            }
-        })
-    }
+
 
 
     $("#logout-button").click(function () {
@@ -59,11 +49,34 @@ $(document).ready(function (){
     })
 
     $("body").on("click", ".del-but",function (){
-        $(this).parent().parent().remove();
+        let estateId = $(this).parent().parent().attr("id");
+        let el = $(this);
+        console.log(estateId)
+        $.ajax({
+            url:"/api/user/objects/delete",
+            type:"DELETE",
+            data:{"estateId": estateId,
+            "userId": check_cookie_name("Id")},
+            success: function () {
+                el.parent().parent().remove();
+            }
+        })
     })
 
+    function getUser() {
+        let userId = check_cookie_name("Id");
+        $.ajax({
+            url:"/api/user/"+userId,
+            type: "GET",
+            success: function (data) {
+                $("#welcome-text").append(data["firstName"]+" "+
+                    data["lastName"]+".");
+            }
+        })
+    }
+
     function addObj(data) {
-        $("#table-objects").append("<tr><td>" + data["cityName"] +
+        $("#table-objects").append("<tr id='"+data["id"]+"'><td>" + data["cityName"] +
             "</td><td>" + data["streetName"] + "</td><td>" + data["houseNumber"] + "</td>" +
             "<td>" + data["flatNumber"] + "</td>" +
             "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
@@ -91,7 +104,8 @@ $(document).ready(function (){
             success: function (data) {
              let l = data.length;
              for (let i = 0; i < l; i++) {
-                 $("#table-objects").append("<tr><td>"+data[i]["cityName"]+
+                 console.log(data[i]["id"]);
+                 $("#table-objects").append("<tr id='"+data[i]["id"]+"'><td>"+data[i]["cityName"]+
                  "</td><td>"+data[i]["streetName"]+"</td><td>"+data[i]["houseNumber"]+"</td>" +
                      "<td>"+data[i]["flatNumber"]+"</td>" +
                      "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +

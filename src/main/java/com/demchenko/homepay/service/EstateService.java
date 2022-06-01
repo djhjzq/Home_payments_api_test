@@ -21,7 +21,7 @@ public interface EstateService {
 
     Set<Estate> findAllEstatesByUserId(Long userId);
 
-    void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId);
+    void deleteEstate(Long userId, Long estateId);
 
     List<Estate> search(Long cityId, Long streetId, Integer houseNumber, Long estateType);
 

@@ -88,13 +88,14 @@ public class EstateServiceImpl implements EstateService {
     }
 
     @Override
-    public void deleteEstate(Long userId, Long cityId, Long streetId, Long estateId) {
+    public void deleteEstate(Long userId, Long estateId) {
         Estate estate = findEstateById(estateId);
+        estate.getUserSets().remove(userService.findUserById(userId));
         userService.findUserById(userId).getEstateSet()
                 .remove(estate);
-        cityService.findCityById(cityId).getEstateSet()
+        cityService.findCityById(estate.getCity().getId()).getEstateSet()
                 .remove(estate);
-        streetService.findStreetById(streetId).getEstateSet()
+        streetService.findStreetById(estate.getStreet().getId()).getEstateSet()
                 .remove(estate);
         log.info("Try to delete estate by id: {}", estateId);
         estateRepository.deleteById(estateId);
