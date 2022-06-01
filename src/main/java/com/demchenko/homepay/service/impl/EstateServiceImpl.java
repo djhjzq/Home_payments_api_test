@@ -1,8 +1,10 @@
 package com.demchenko.homepay.service.impl;
 
 import com.demchenko.homepay.dto.request.EstateRegistryForm;
+import com.demchenko.homepay.entity.City;
 import com.demchenko.homepay.entity.Estate;
 import com.demchenko.homepay.entity.EstateType;
+import com.demchenko.homepay.entity.Street;
 import com.demchenko.homepay.exception.EstateNotFoundException;
 import com.demchenko.homepay.repository.EstateRepository;
 import com.demchenko.homepay.service.EstateService;
@@ -64,8 +66,10 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public Estate registryEstate(EstateRegistryForm estateRegistryForm) {
-        return createEstate(estateRegistryForm.userId(), estateRegistryForm.cityId(),
-                estateRegistryForm.streetId(), estateRegistryForm.houseNumber(),
+       City city =  cityService.findCityByName(estateRegistryForm.cityName());
+        Street street = streetService.findStreetByCityAndName(city.getId(), estateRegistryForm.streetName());
+        return createEstate(estateRegistryForm.userId(), city.getId(),
+                street.getId(), estateRegistryForm.houseNumber(),
                 estateRegistryForm.flatNumber());
     }
 

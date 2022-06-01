@@ -40,4 +40,21 @@ public class StreetServiceImpl implements StreetService {
                         ("Street by id " + streetId + " was not found."));
     }
 
+    @Override
+    public Street findStreetByName(String streetName) {
+       return streetRepository.findStreetByName(streetName);
+    }
+
+    @Override
+    public Street findStreetByCityAndName(Long cityId, String streetName) {
+        Street street = findStreetByName(streetName);
+        if (street != null) {
+            if (street.getCity().getId().equals(cityId)) {
+                return street;
+            }
+            cityService.findCityById(cityId).getStreetSet().add(street);
+            return street;
+        }
+        return createStreet(cityId, streetName);
+    }
 }

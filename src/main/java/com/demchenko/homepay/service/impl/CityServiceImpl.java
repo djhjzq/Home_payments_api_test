@@ -36,4 +36,8 @@ public class CityServiceImpl implements CityService {
                         ("City by id " + cityId + " was not found."));
     }
 
+    @Override
+    public City findCityByName(String cityName) {
+        return cityRepository.findCityByName(cityName).orElse(createCity(cityName));
+    }
 }

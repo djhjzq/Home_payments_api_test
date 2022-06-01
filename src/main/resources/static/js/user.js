@@ -23,6 +23,7 @@ $(document).ready(function (){
         window.location.href="/api/logout"
     })
 
+
     $("#add-obj").click(function (){
         if (isOpen === false) {
             $("#addObject-form").css("display", "block")
@@ -41,11 +42,20 @@ $(document).ready(function (){
         event.preventDefault();
 
         let $form = $(this),
-            cityName = $form.find("input[name='firstName']").val(),
-            StreetName = $form.find("input[name='lastName']").val(),
-            houseNumber = $form.find("input[name='email']").val(),
-            flatNumber = $form.find("input[name='email']").val();
+            cityName = $form.find("input[name='cityName']").val(),
+            streetName = $form.find("input[name='streetName']").val(),
+            houseNumber = $form.find("input[name='houseNumber']").val(),
+            flatNumber = $form.find("input[name='flatNumber']").val();
 
+        $.ajax({
+            url:"/api/user/objects/new",
+            type:"POST",
+            data: {"userId": check_cookie_name("Id"),
+            cityName, streetName, houseNumber, flatNumber},
+            success: function () {
+                generateObjectsTable();
+            }
+        })
 
 
     })
