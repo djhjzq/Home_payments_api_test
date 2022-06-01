@@ -32,6 +32,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Invoice createInvoice(String name, String invoiceType, Long estateId) {
         Invoice invoice = new Invoice();
         invoice.setName(name);
+        log.info(invoiceType);
         invoice.setEstate(estateService.findEstateById(estateId));
         invoice.setInvoiceType(InvoiceType.valueOf(invoiceType));
         log.info("Save invoice to repository with name: {}, estateId: {}, " +
@@ -41,6 +42,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice addInvoice(InvoiceRegistryForm invoiceRegistryForm) {
+        log.info(invoiceRegistryForm.invoiceType());
         return createInvoice(invoiceRegistryForm.name(),
                 invoiceRegistryForm.invoiceType(),
                 invoiceRegistryForm.estateId());
@@ -60,10 +62,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void deleteInvoice(Long estateId, Long invoiceId) {
-        estateService.findEstateById(estateId).getInvoiceSet()
-                .remove(findInvoiceById(invoiceId));
-        log.info("Try to delete invoice by estateId: {}, invoiceId: {}", estateId,
+    public void deleteInvoice(Long invoiceId) {
+        Invoice invoice = findInvoiceById(invoiceId);
+        estateService.findEstateById(invoice.getEstate().getId()).getInvoiceSet()
+                .remove(invoice);
+        log.info("Delete invoice by invoiceId: {}",
                 invoiceId);
         invoiceRepository.deleteById(invoiceId);
     }

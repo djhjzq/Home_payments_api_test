@@ -30,6 +30,41 @@
                     <h1 id="t2">Your objects:</h1>
                     <h3 id="t3" style="display: none"></h3>
                 </div>
+                <div>
+                    <div id="invoice-table" style="display: none">
+                        <table class="table" >
+                            <thead>
+                            <tr>
+                                <th scope="col">InvoiceName</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Delete</th>
+                                <th scope="col">Pay</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-invoices">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="addInvo-form" style="display: none">
+                    <form id="form-Inv">
+                        <input type="text" name="invoiceName" placeholder="Invoice_name"/>
+                        <select name="invoiceType" id="invoices">
+                            <option value="GAS">GAS</option>
+                            <option value="ELECTRICITY">ELECTRICITY</option>
+                            <option value="WATER">WATER</option>
+                            <option value="GARBAGE">GARBAGE</option>
+                        </select>
+                        <button type="submit" class="btn-primary">Submit</button>
+                        <p id="warning-msg"></p>
+                        <hr/>
+                    </form>
+                </div>
+                <div class="container text-center" id="add-invo" style="display: none">
+                    <button type="button" id="add-inv" class="btn-primary">Add new</button>
+                </div>
+
+
                 <div class="container-fluid" id="objectsTable">
                     <table class="table">
                         <thead>

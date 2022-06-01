@@ -16,6 +16,6 @@ public interface InvoiceService {
 
     Set<Invoice> findAllEstateInvoices(Long estateId);
 
-    void deleteInvoice(Long estateId, Long invoiceId);
+    void deleteInvoice(Long invoiceId);
 
 }

@@ -44,8 +44,8 @@ public class InvoiceController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteInvoice(@Positive Long estateId, @Positive Long invoiceId) {
-        invoiceService.deleteInvoice(estateId, invoiceId);
+    public ResponseEntity<?> deleteInvoice(@Positive Long invoiceId) {
+        invoiceService.deleteInvoice(invoiceId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
