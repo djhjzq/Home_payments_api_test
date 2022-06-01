@@ -58,20 +58,17 @@ $(document).ready(function (){
         })
     })
 
-    $(".del-but").click(function (){
+    $("body").on("click", ".del-but",function (){
         $(this).parent().parent().remove();
-        return false;
     })
 
     function addObj(data) {
-        $("#table-objects").append("<tr><td>"+data["cityName"]+
-            "</td><td>"+data["streetName"]+"</td><td>"+data["houseNumber"]+"</td>" +
-            "<td>"+data["flatNumber"]+"</td><td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button> </td></tr>"+
-            "<td><button type='button' class='btn-primary '>Pay</button> </td></tr>");
+        $("#table-objects").append("<tr><td>" + data["cityName"] +
+            "</td><td>" + data["streetName"] + "</td><td>" + data["houseNumber"] + "</td>" +
+            "<td>" + data["flatNumber"] + "</td>" +
+            "<td><button type='button' class='btn btn-danger btn-sm del-but'>Delete</button></td>" +
+            "<td><button type='button' class='btn-primary'>Pay</button> </td></tr>")
     }
-    
-
-
 
     function check_cookie_name(name)
     {
