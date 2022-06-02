@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,7 +15,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class  User extends Person {
-
 
     @Column(name = "email")
     private String email;
@@ -37,5 +37,11 @@ public class  User extends Person {
     joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "estate_id"))
     private Set<Estate> estateSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Message> messageList;
+
+    @OneToMany(mappedBy = "userAddress")
+    private List<Message> inMessage;
 
 }
